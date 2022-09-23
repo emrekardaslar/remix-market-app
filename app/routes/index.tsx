@@ -1,9 +1,11 @@
-import MainPage from "~/components/mainPage/MainPage";
+import { Outlet } from "@remix-run/react";
+import Products from "./products";
 
-export default function Index() {
+export default function MainIndex() {
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>
-      <MainPage/>
+      <Products/>
+      <Outlet/> 
     </div>
   );
 }

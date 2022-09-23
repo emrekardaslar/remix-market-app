@@ -2,6 +2,7 @@ import { Menu } from 'antd'
 
 import { ItemType } from 'antd/lib/menu/hooks/useItems'
 import { Layout } from 'antd';
+import { useNavigate } from '@remix-run/react';
 
 const { Sider } = Layout
 
@@ -10,6 +11,8 @@ interface Props {
 }
 
 function Sidebar(props: Props) {
+    const navigate = useNavigate()
+
     return (
         <Sider width={200} className="site-layout-background">
             <Menu
@@ -21,6 +24,7 @@ function Sidebar(props: Props) {
                     borderRight: 0,
                 }}
                 items={props.items}
+                onClick={(item)=>{navigate(`/products/drink/${item.key}`)}}
             />
         </Sider>
     )

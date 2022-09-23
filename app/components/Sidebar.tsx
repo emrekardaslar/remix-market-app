@@ -24,7 +24,7 @@ function Sidebar(props: Props) {
                     borderRight: 0,
                 }}
                 items={props.items}
-                onClick={(item)=>{navigate(`/products/drink/${item.key}`)}}
+                onClick={(item)=>{navigate(`/products/${item.keyPath[1].toLocaleLowerCase()}/${item.key}`)}}
             />
         </Sider>
     )

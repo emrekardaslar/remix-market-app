@@ -1,13 +1,13 @@
 import { useParams } from '@remix-run/react';
 import PageContent from '~/components/UI/PageContent';
 
-function $waterId() {
+function WaterDetail() {
     const params = useParams();
     return (
         <PageContent>
-            <h1>Water: {params.waterId}</h1>
+            <h1>Water: {params.id}</h1>
         </PageContent>
     )
 }
 
-export default $waterId
+export default WaterDetail

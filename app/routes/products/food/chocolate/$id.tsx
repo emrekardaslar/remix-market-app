@@ -1,5 +1,4 @@
 import { useParams } from '@remix-run/react'
-import React from 'react'
 import PageContent from '~/components/UI/PageContent'
 
 function ChocolateDetail() {

@@ -1,5 +1,5 @@
 import { Link, Outlet } from '@remix-run/react'
-import PageContent from '~/components/UI/PageCon'
+import PageContent from '~/components/UI/PageContent'
 
 function Coke() {
   return (

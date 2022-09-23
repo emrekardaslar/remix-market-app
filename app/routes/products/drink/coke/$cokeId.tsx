@@ -1,5 +1,5 @@
 import { Outlet, useParams } from '@remix-run/react'
-import PageContent from '~/components/UI/PageCon';
+import PageContent from '~/components/UI/PageContent';
 
 function $cokeId() {
     const params = useParams();

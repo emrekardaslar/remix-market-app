@@ -7,7 +7,7 @@ const drinkItems: SidebarItem[] = [{name: 'Coke', subItems: []}, {name: 'Water',
 export const sidebarMenu: SidebarMenu = {
     items: [
         {
-            name: 'Snack',
+            name: 'Food',
             subItems: snackItems
         },
          {

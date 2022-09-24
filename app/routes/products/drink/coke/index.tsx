@@ -20,7 +20,7 @@ function Coke() {
           <h1>Coke</h1>
           {items.map((item: any) => (
             <>
-              <Link to={item.id}>{item.name} </Link>
+              <Link key={item.id} to={item.id}>{item.name} </Link>
             </>
           ))}
         </PageContent>

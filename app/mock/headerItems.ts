@@ -1,4 +1,4 @@
-const items1 = ['Home', 'Siparişlerim', 'Favori Listem', 'Üye Girişi', 'Üye Ol'].map((key) => ({
+const items1 = ['Products', 'Orders', 'Favorite List', 'Login', 'Register'].map((key) => ({
     key,
     label: `${key}`,
   }));

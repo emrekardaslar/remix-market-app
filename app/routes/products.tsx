@@ -28,7 +28,7 @@ function getSidebarItems(): ItemType[] {
 function Products() {
     return (
         <Layout>
-            <HeaderC items={headerItems} />
+            <HeaderC items={headerItems} selectedKey="Products" />
 
             <Layout>
                 <Sidebar items={getSidebarItems()} />

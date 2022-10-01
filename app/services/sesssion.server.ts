@@ -1,5 +1,5 @@
 // app/services/session.server.ts
-import { createCookieSessionStorage } from '@remix-run/node';
+import { createCookieSessionStorage, redirect } from '@remix-run/node';
 
 // export the whole sessionStorage object
 export let sessionStorage = createCookieSessionStorage({
@@ -12,6 +12,13 @@ export let sessionStorage = createCookieSessionStorage({
     secure: process.env.NODE_ENV === 'production', // enable this in prod only
   },
 });
+
+export async function logout(request: Request) {
+  let session = await getSession(request.headers.get("Cookie"));
+  return redirect("/login", {
+    headers: { "Set-Cookie": await destroySession(session) },
+  });
+}
 
 // you can also export the methods individually for your own usage
 export let { getSession, commitSession, destroySession } = sessionStorage;

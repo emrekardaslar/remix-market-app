@@ -1,4 +1,4 @@
-import { useNavigate } from '@remix-run/react';
+import { Form, useNavigate } from '@remix-run/react';
 import { Menu } from 'antd';
 import { Header } from 'antd/lib/layout/layout';
 import { ItemType } from 'antd/lib/menu/hooks/useItems';
@@ -18,6 +18,11 @@ function HeaderC(props: Props) {
             items={props.items} 
             onClick={(item)=>{navigate('/' + item.key.replace(/\s+/g, '-').toLowerCase())}}
             />
+{/*             <Form action="/logout" method="post">
+                <button type="submit" className="button">
+                  Logout
+                </button>
+            </Form> */}
         </Header>
     )
 }

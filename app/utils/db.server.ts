@@ -1,23 +1,23 @@
 import { PrismaClient } from "@prisma/client";
 
-let prisma: PrismaClient;
+let db: PrismaClient;
 
 declare global {
-  var __db__: PrismaClient;
+  var __db: PrismaClient | undefined;
 }
 
 // this is needed because in development we don't want to restart
 // the server with every change, but we want to make sure we don't
 // create a new connection to the DB with every change either.
-// in production we'll have a single connection to the DB.
 if (process.env.NODE_ENV === "production") {
-  prisma = new PrismaClient();
+  db = new PrismaClient();
+  db.$connect();
 } else {
-  if (!global.__db__) {
-    global.__db__ = new PrismaClient();
+  if (!global.__db) {
+    global.__db = new PrismaClient();
+    global.__db.$connect();
   }
-  prisma = global.__db__;
-  prisma.$connect();
+  db = global.__db;
 }
 
-export { prisma };
+export { db };

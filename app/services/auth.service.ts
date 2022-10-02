@@ -1,7 +1,7 @@
 // app/services/auth.server.ts
 import { Authenticator, AuthorizationError } from 'remix-auth';
 import { FormStrategy } from 'remix-auth-form';
-import { sessionStorage, User } from './sesssion.server'
+import { login, sessionStorage, User } from './sesssion.server'
 
 // Create an instance of the authenticator, pass a Type, User,  with what
 // strategies will return and will store in the session
@@ -15,7 +15,7 @@ authenticator.use(
   new FormStrategy(async ({ form }) => {
 
     // get the data from the form...
-    let email = form.get('email') as string;
+    let email = form.get('username') as string;
     let password = form.get('password') as string;
 
     // initiialize the user here
@@ -30,8 +30,11 @@ authenticator.use(
     if (typeof password !== 'string')
       throw new AuthorizationError('Bad Credentials: Password must be a string')
 
+    const userLoggedIn = await login({email, password})
+
     // login the user, this could be whatever process you want
-    if (email === 'test@gmail.com' && password === 'test') {
+    if (userLoggedIn) {
+      console.log(userLoggedIn)
       user = {
         name: email,
         token: `${password}-${new Date().getTime()}`,

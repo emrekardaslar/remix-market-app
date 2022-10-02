@@ -1,28 +1,35 @@
-import { Form, useNavigate } from '@remix-run/react';
-import { Menu } from 'antd';
+import { redirect } from '@remix-run/node';
+import { Form, useNavigate, useSubmit } from '@remix-run/react';
+import { Button, Menu } from 'antd';
 import { Header } from 'antd/lib/layout/layout';
 import { ItemType } from 'antd/lib/menu/hooks/useItems';
+import { destroySession } from '~/services/sesssion.server';
 
 interface Props {
     items: ItemType[],
     selectedKey?: string
 }
 
+
 function HeaderC(props: Props) {
     const navigate = useNavigate()
+    const submit = useSubmit();
+
+    async function logout() {
+        submit(null, {method: 'post', action: '/logout'})
+    }
+
     return (
         <Header className="header">
             <div className="logo" />
             <Menu theme="dark" mode="horizontal" 
             defaultSelectedKeys={[props.selectedKey ? props.selectedKey : '']} 
             items={props.items} 
-            onClick={(item)=>{navigate('/' + item.key.replace(/\s+/g, '-').toLowerCase())}}
+            onClick={(item)=>{
+                item.key == 'Logout' ? logout() :
+                navigate('/' + item.key.replace(/\s+/g, '-').toLowerCase())
+            }}
             />
-{/*             <Form action="/logout" method="post">
-                <button type="submit" className="button">
-                  Logout
-                </button>
-            </Form> */}
         </Header>
     )
 }

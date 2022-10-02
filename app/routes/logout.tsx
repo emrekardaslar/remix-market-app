@@ -3,7 +3,6 @@ import { logout } from "~/services/sesssion.server";
 
 
 export let action: ActionFunction = async ({ request }) => {
-  console.log(request)
   return logout(request);
 };
 

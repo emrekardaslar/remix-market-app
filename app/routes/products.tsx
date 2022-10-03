@@ -6,7 +6,15 @@ import Sidebar from '~/components/Sidebar'
 import headerItems from "../mock/headerItems"
 import { sidebarMenu } from "../mock/sidebarItems"
 import { Layout } from 'antd';
-import { Outlet } from '@remix-run/react';
+import { Outlet, useLoaderData } from '@remix-run/react';
+import { getHeaderItems } from '~/utils/helper';
+import { getUserId } from '~/services/sesssion.server';
+import { LoaderFunction, redirect } from '@remix-run/node';
+
+export let loader: LoaderFunction = async ({ request }) => {
+    let userId = await getUserId(request);
+    return {user: userId};
+};
 
 function getSidebarItems(): ItemType[] {
     const sidebar = sidebarMenu;
@@ -26,9 +34,11 @@ function getSidebarItems(): ItemType[] {
 }
 
 function Products() {
+    const data = useLoaderData()
+    let items = getHeaderItems(data, headerItems)
     return (
         <Layout>
-            <HeaderC items={headerItems} selectedKey="Products" />
+            <HeaderC items={items} selectedKey="Products" />
 
             <Layout>
                 <Sidebar items={getSidebarItems()} />

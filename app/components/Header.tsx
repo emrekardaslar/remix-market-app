@@ -1,9 +1,7 @@
-import { redirect } from '@remix-run/node';
-import { Form, useNavigate, useSubmit } from '@remix-run/react';
-import { Button, Menu } from 'antd';
+import { useNavigate, useSubmit } from '@remix-run/react';
+import { Menu } from 'antd';
 import { Header } from 'antd/lib/layout/layout';
 import { ItemType } from 'antd/lib/menu/hooks/useItems';
-import { destroySession } from '~/services/sesssion.server';
 
 interface Props {
     items: ItemType[],

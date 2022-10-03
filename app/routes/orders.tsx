@@ -1,14 +1,15 @@
 import { ActionFunction, LoaderFunction, redirect } from '@remix-run/node';
-import { Outlet } from '@remix-run/react'
+import { Outlet, useLoaderData } from '@remix-run/react'
 import HeaderC from '~/components/Header'
 import authenticator from '~/services/auth.service';
 import { getUserId } from '~/services/sesssion.server';
+import { getHeaderItems } from '~/utils/helper';
 import headerItems from "../mock/headerItems"
 
 export let loader: LoaderFunction = async ({ request }) => {
   let userId = await getUserId(request);
   if (!userId) throw redirect('/login')
-  return {};
+  return {user: userId};
 };
 
 export const action: ActionFunction = async ({ request }) => {
@@ -16,9 +17,12 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 function Orders() {
+  const data = useLoaderData()
+  let items = getHeaderItems(data, headerItems)
+
   return (
     <>
-        <HeaderC items={headerItems} selectedKey='Orders' />
+        <HeaderC items={items} selectedKey='Orders' />
         <Outlet />
     </>
   )

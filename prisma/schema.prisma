@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -32,6 +32,7 @@ model Product {
   id String @id @default(uuid())
   name String
   price Float
+  imgLink String
   order Order @relation(fields: [orderId], references: [id], onDelete: SetDefault)
   orderId String
 }

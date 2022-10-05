@@ -58,7 +58,7 @@ async function seed() {
 
   const orderItem = await db.orderItem.create({
     data: {
-      productId: "fb5a8824-bd61-495c-9b4f-710b1d435ee7",
+      productId: "a9450a2d-2d35-4523-b27b-b8552260efe9",
       orderId: "3360fc79-4737-4cd9-9c1d-af0166436cec"
     }
   })

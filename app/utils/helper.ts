@@ -14,3 +14,11 @@ export const getHeaderItems = (data: any, headerItems: any) => {
     }
     return items;
 }
+
+export const getTotalPrice = (items: any) => {
+    let totalPrice = 0.0;
+    items.forEach((item:any) => {
+        totalPrice += item.price
+    })
+    return totalPrice
+}

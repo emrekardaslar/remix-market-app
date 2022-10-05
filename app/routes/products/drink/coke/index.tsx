@@ -1,6 +1,6 @@
 import { json, LoaderFunction } from '@remix-run/node';
-import { Link, Outlet, useLoaderData, useNavigate } from '@remix-run/react'
-import { Row, Col, Divider } from 'antd';
+import { Outlet, useLoaderData, useNavigate } from '@remix-run/react'
+import { Row, Col } from 'antd';
 import Card from 'antd/lib/card/Card';
 import Meta from 'antd/lib/card/Meta';
 import PageContent from '~/components/UI/PageContent'

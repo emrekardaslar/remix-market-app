@@ -11,7 +11,7 @@ async function seed() {
     },
   }); */
 
-  const cocaCola = await db.product.create({
+/*   const cocaCola = await db.product.create({
     data: {
       name: "Coca cola",
       price: 11.5,
@@ -24,6 +24,42 @@ async function seed() {
       name: "Pepsi",
       price: 11.45,
       imgLink: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiByxQjdaBHgB0he4ip9G7w5nuYbbActS5pQ&usqp=CAU"
+    }
+  })
+ */
+
+/*   const iceTea = await db.product.create({
+    data: {
+      name: "Ice Tea",
+      price: 11.00,
+      imgLink: "https://ayb.akinoncdn.com/products/2022/04/12/3560/bfe7d2f6-d113-4e28-b1ce-8522e5023f82_size780x780_quality60_cropCenter.jpg"
+    }
+  })
+ */
+/*   const order = await db.order.create({
+    data: {
+      id: 'testorderid1',
+      userId: '860b4da3-e1f0-434a-ab18-2bc5f5c8d7ef'
+    }
+  })
+
+  const orderItem = await db.orderItem.create({
+    data: {
+      productId: "de534b3e-588c-4266-bcef-b352bc13f0d3",
+      orderId: "testorderid1"
+    }
+  }) */
+
+/*   const order = await db.order.create({
+    data: {
+      userId: '860b4da3-e1f0-434a-ab18-2bc5f5c8d7ef'
+    }
+  }) */
+
+  const orderItem = await db.orderItem.create({
+    data: {
+      productId: "fb5a8824-bd61-495c-9b4f-710b1d435ee7",
+      orderId: "3360fc79-4737-4cd9-9c1d-af0166436cec"
     }
   })
 }

@@ -21,7 +21,7 @@ export const action: ActionFunction = async ({ request }) => {
 function Cart() {
     const data = useLoaderData();
     let items = getHeaderItems(data, headerItems)
-    const [cartItems1, setCartItems1] = useState([])
+    const [cartItems1, setCartItems1] = useState<any>([])
     const {
         getItemQuantity,
         increaseCartQuantity,
@@ -38,10 +38,10 @@ function Cart() {
             <HeaderC items={items} selectedKey='Cart' />
             <Outlet />
             <h4>Cart</h4>
-            {cartItems1.map((item) => (
+            {cartItems1.map((item: any) => (
                 <>
-                    <p>{item.name}</p>
-                    <p>{item.quantity}</p>
+                    <p>Name: {item.name}</p>
+                    <p>Quantity: {item.quantity}</p>
                 </>
             ))}
         </>

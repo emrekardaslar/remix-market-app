@@ -7,6 +7,7 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import { CartProvider } from "./context/CartContext";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
@@ -31,10 +32,12 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Outlet />
-        <ScrollRestoration />
-        <Scripts />
-        <LiveReload />
+        <CartProvider>
+          <Outlet />
+          <ScrollRestoration />
+          <Scripts />
+          <LiveReload />
+        </CartProvider>
       </body>
     </html>
   );

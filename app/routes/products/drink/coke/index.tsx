@@ -4,6 +4,7 @@ import { Row, Col, Button } from 'antd';
 import Card from 'antd/lib/card/Card';
 import Meta from 'antd/lib/card/Meta';
 import PageContent from '~/components/UI/PageContent'
+import { useShoppingCart } from '~/context/CartContext';
 import { db } from '~/utils/db.server';
 
 export const loader: LoaderFunction = async () => {
@@ -15,6 +16,12 @@ export const loader: LoaderFunction = async () => {
 function Coke() {
   const cokes = useLoaderData();
   const navigate = useNavigate()
+  const {
+    getItemQuantity,
+    increaseCartQuantity,
+    decreaseCartQuantity,
+    removeFromCart,
+  } = useShoppingCart()
   return (
     <>
       <PageContent  >
@@ -28,7 +35,7 @@ function Coke() {
                     style={{ width: 240 }} cover={<img alt="example" src={item.imgLink} onClick={()=>navigate(`./${item.id}`)} />}>
                     <Meta key={item.id} title={item.name} description={`Price: ${item.price}`} />
                     <br></br>
-                    <Button type='primary'>Add to Cart</Button>
+                    <Button type='primary' onClick={()=>increaseCartQuantity(item.id)}>Add to Cart</Button>
                   </Card>
                 </Col>
               </div>

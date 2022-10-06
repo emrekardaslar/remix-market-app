@@ -1,6 +1,6 @@
 import { json, LoaderFunction } from '@remix-run/node';
 import { Outlet, useLoaderData, useNavigate } from '@remix-run/react'
-import { Row, Col } from 'antd';
+import { Row, Col, Button } from 'antd';
 import Card from 'antd/lib/card/Card';
 import Meta from 'antd/lib/card/Meta';
 import PageContent from '~/components/UI/PageContent'
@@ -27,6 +27,8 @@ function Coke() {
                   <Card key={item.id} hoverable size='small' title={item.name} bordered={false}
                     style={{ width: 240 }} cover={<img alt="example" src={item.imgLink} onClick={()=>navigate(`./${item.id}`)} />}>
                     <Meta key={item.id} title={item.name} description={`Price: ${item.price}`} />
+                    <br></br>
+                    <Button type='primary'>Add to Cart</Button>
                   </Card>
                 </Col>
               </div>

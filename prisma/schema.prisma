@@ -42,5 +42,7 @@ model Product {
   name String
   price Float
   imgLink String
+  category String @default("")
+  subCategory String @default("")
   orderItem OrderItem[]
 }

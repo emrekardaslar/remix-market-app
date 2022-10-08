@@ -9,7 +9,13 @@ import { db } from '~/utils/db.server';
 
 export const loader: LoaderFunction = async () => {
   return json(
-    await db.product.findMany()
+    await db.product.findMany(
+      {
+        where: {
+          subCategory: 'coke'
+        }
+      }
+    )
   )
 };
 

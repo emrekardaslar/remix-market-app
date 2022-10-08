@@ -13,7 +13,7 @@ type CartItem = {
 
 type CartContext = {
     getItemQuantity: (id: number) => number
-    increaseCartQuantity: (id: number, name: string) => void
+    increaseCartQuantity: (id: number, name: string, price: number) => void
     decreaseCartQuantity: (id: number) => void
     removeFromCart: (id: number) => void
     cartItems: CartItem[]
@@ -32,10 +32,10 @@ export function CartProvider({ children }: CartProviderProps) {
         return cartItems.find(item => item.id === id)?.quantity || 0
     }
 
-    function increaseCartQuantity(id: number, name: string) {
+    function increaseCartQuantity(id: number, name: string, price: number) {
         setCartItems(currItems => {
             if (currItems.find(item => item.id === id) == null) {
-                return [...currItems, { id, name, quantity: 1 }]
+                return [...currItems, { id, name, price, quantity: 1 }]
             } else {
                 return currItems.map(item => {
                     if (item.id === id) {

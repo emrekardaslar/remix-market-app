@@ -41,7 +41,7 @@ function Coke() {
                     style={{ width: 240 }} cover={<img alt="example" src={item.imgLink} onClick={()=>navigate(`./${item.id}`)} />}>
                     <Meta key={item.id} title={item.name} description={`Price: ${item.price}`} />
                     <br></br>
-                    <Button type='primary' onClick={()=>increaseCartQuantity(item.id, item.name)}>Add to Cart</Button>
+                    <Button type='primary' onClick={()=>increaseCartQuantity(item.id, item.name, item.price)}>Add to Cart</Button>
                   </Card>
                 </Col>
               </div>

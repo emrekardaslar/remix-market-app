@@ -1,6 +1,6 @@
 import { LoaderFunction, redirect } from "@remix-run/node";
 import { useLoaderData, useNavigate } from "@remix-run/react";
-import { Row, Col, Card } from "antd"
+import { Row, Col, Card, Button } from "antd"
 import { getUserId } from "~/services/sesssion.server";
 import { db } from "~/utils/db.server";
 
@@ -29,6 +29,7 @@ function Orders() {
                         <Col span={6}>
                             <Card title={item.id} style={{ width: 300 }} onClick={() => navigate(`./${item.id}`)}>
                                 <p>Created at: {item.createdAt}</p>
+                                <Button type="danger" onClick={()=>{"TODO: delete order"}}>Delete</Button>
                             </Card>
                         </Col>
                     </div>

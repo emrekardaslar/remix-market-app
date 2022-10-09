@@ -21,7 +21,7 @@ export let loader: LoaderFunction = async ({ params, request }) => {
     )
     const items = orderItems.map((item: any) => item.productId)
 
-    let products = (
+    let products: any = (
         await db.product.findMany(
             {
                 where: {
@@ -30,6 +30,16 @@ export let loader: LoaderFunction = async ({ params, request }) => {
             }
         )
     )
+
+    orderItems.map((item: any) => {
+        products.forEach((product: any) => {
+            if (item.productId === product.id) {
+          
+                product.quantity = item.quantity
+            }
+        })
+    })
+    //TODO: may be dealt using query
 
     return { orderItems: orderItems, products: products };
 };
@@ -46,7 +56,7 @@ function OrderDetails() {
                 <Col span={6}>
                   <Card key={item.id} hoverable size='small'
                     style={{ width: 120 }}>
-                    <Meta key={item.id} title={item.name} description={`Price: $${item.price}`} />
+                    <Meta key={item.id} title={item.name} description={`Quantity: ${item.quantity} Price: $${item.price * item.quantity}`} />
                   </Card>
                 </Col>
             </>

@@ -1,13 +1,14 @@
 import { LoaderFunction, redirect, ActionFunction } from "@remix-run/node";
-import { useLoaderData, Outlet } from "@remix-run/react";
+import { useLoaderData, Outlet, Form, useActionData } from "@remix-run/react";
 import { Button, Card } from "antd";
 import { useEffect, useState } from "react";
 import HeaderC from "~/components/Header";
 import { useShoppingCart } from "~/context/CartContext";
 import headerItems from "~/mock/headerItems";
-import authenticator from "~/services/auth.service";
 import { getUserId } from "~/services/sesssion.server";
+import { db } from "~/utils/db.server";
 import { getHeaderItems } from "~/utils/helper";
+import { v4 as uuidv4 } from 'uuid';
 
 export let loader: LoaderFunction = async ({ request }) => {
     let userId = await getUserId(request);
@@ -16,14 +17,44 @@ export let loader: LoaderFunction = async ({ request }) => {
 };
 
 export const action: ActionFunction = async ({ request }) => {
-    await authenticator.logout(request, { redirectTo: "/login" });
+    let done = false;
+    let formData = await request.formData()
+    const user = JSON.parse(formData.get("data")).user
+    const data = JSON.parse(formData.get("data")).data
+    let orderId = uuidv4()
+
+    const order = await db.order.create({
+        data: {
+            id: orderId,
+            userId: user
+        }
+    })
+
+
+    const orderItems = data.map(async (item: any) => {
+        await db.orderItem.create({
+            data: {
+                orderId: orderId,
+                productId: item.id,
+                quantity: item.quantity
+            }
+        })
+    })
+
+    if (orderItems && order) {
+        done = true;
+    }
+
+    return {done: done}
 };
 
 function Cart() {
     const data = useLoaderData();
+    const actionData = useActionData();
     let items = getHeaderItems(data, headerItems)
     const [cartItems1, setCartItems1] = useState<any>([])
     const [total, setTotal] = useState(0.0)
+
     const {
         getItemQuantity,
         increaseCartQuantity,
@@ -40,14 +71,18 @@ function Cart() {
         setTotal(total)
     }
 
-    function createOrder() {
-        console.log(cartItems)
-    }
-
     useEffect(() => {
         setCartItems1(cartItems)
         setTotalCost()
     }, [cartItems])
+
+    useEffect(()=>{
+        if (actionData && actionData.done) {
+            localStorage.clear()
+            setCartItems1([])
+            //TODO: fix total price bug
+        }
+    }, [actionData])
 
     return (
         <>
@@ -70,7 +105,10 @@ function Cart() {
                 <h2>
                     Total Price <strong>{total}</strong>
                 </h2>
-                <Button type="primary" onClick={createOrder}>Create Order</Button>
+                <Form method="post">
+                    <input type="hidden" name="data" defaultValue={JSON.stringify({user: data.user, data: cartItems1})} />
+                    <button type="submit">Create Order</button>
+                </Form>
             </div>
         </>
     )

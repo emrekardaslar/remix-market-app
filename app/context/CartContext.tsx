@@ -48,7 +48,7 @@ export function CartProvider({ children }: CartProviderProps) {
         })
     }
 
-    function decreaseCartQuantity(id: number, name: string) {
+    function decreaseCartQuantity(id: number) {
         setCartItems(currItems => {
             if (currItems.find(item => item.id === id)?.quantity === 1) {
                 return currItems.filter(item => item.id !== id)

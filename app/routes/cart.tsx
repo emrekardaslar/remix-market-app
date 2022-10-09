@@ -107,7 +107,7 @@ function Cart() {
                 </h2>
                 <Form method="post">
                     <input type="hidden" name="data" defaultValue={JSON.stringify({user: data.user, data: cartItems1})} />
-                    <button type="submit">Create Order</button>
+                    <button className="ant-btn ant-btn-primary" type="submit">Create Order</button>
                 </Form>
             </div>
         </>

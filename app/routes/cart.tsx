@@ -45,7 +45,7 @@ export const action: ActionFunction = async ({ request }) => {
         done = true;
     }
 
-    return {done: done}
+    return { done: done }
 };
 
 function Cart() {
@@ -60,7 +60,8 @@ function Cart() {
         increaseCartQuantity,
         decreaseCartQuantity,
         removeFromCart,
-        cartItems
+        cartItems,
+        clearCart
     } = useShoppingCart()
 
     function setTotalCost() {
@@ -68,7 +69,7 @@ function Cart() {
         cartItems.forEach((item: any) => {
             total += item.price * item.quantity
         })
-        setTotal(total)
+        setTotal(Number(total).toFixed(2))
     }
 
     useEffect(() => {
@@ -76,11 +77,11 @@ function Cart() {
         setTotalCost()
     }, [cartItems])
 
-    useEffect(()=>{
+    useEffect(() => {
         if (actionData && actionData.done) {
             localStorage.clear()
             setCartItems1([])
-            //TODO: fix total price bug
+            clearCart()
         }
     }, [actionData])
 
@@ -89,26 +90,30 @@ function Cart() {
             <HeaderC items={items} selectedKey='Cart' />
             <Outlet />
             <div style={{ margin: "1rem" }}>
-                <h2>
-                    Total Items <strong>({cartItems1.length})</strong>
-                </h2>
-                <h4>Cart</h4>
-                {cartItems1.map((item: any) => (
-                    <Card>
-                        <p>Name: {item.name}</p>
-                        <p>Quantity: {item.quantity}</p>
-                        <p>Price: {item.price * item.quantity}</p>
-                        <Button type="primary" shape="circle" style={{ marginRight: "1rem" }} onClick={() => increaseCartQuantity(item.id, item.name, item.price)}>+</Button>
-                        <Button shape="circle" onClick={() => decreaseCartQuantity(item.id)}>-</Button>
-                    </Card>
-                ))}
-                <h2>
-                    Total Price <strong>{total}</strong>
-                </h2>
-                <Form method="post">
-                    <input type="hidden" name="data" defaultValue={JSON.stringify({user: data.user, data: cartItems1})} />
-                    <button className="ant-btn ant-btn-primary" type="submit">Create Order</button>
-                </Form>
+                {cartItems1.length === 0 ?
+                    <h2>
+                        Your cart is empty
+                    </h2> : <>
+                        <h2>
+                            Total Items <strong>({cartItems1.length})</strong>
+                        </h2>
+                        {cartItems1.map((item: any) => (
+                            <Card>
+                                <p>Name: {item.name}</p>
+                                <p>Quantity: {item.quantity}</p>
+                                <p>Price: {(item.price * item.quantity).toFixed(2)}</p>
+                                <Button type="primary" shape="circle" style={{ marginRight: "1rem" }} onClick={() => increaseCartQuantity(item.id, item.name, item.price)}>+</Button>
+                                <Button shape="circle" onClick={() => decreaseCartQuantity(item.id)}>-</Button>
+                            </Card>
+                        ))}
+                        <h2>
+                            Total Price <strong>{total}</strong>
+                        </h2>
+                        <Form method="post">
+                            <input type="hidden" name="data" defaultValue={JSON.stringify({ user: data.user, data: cartItems1 })} />
+                            <button className="ant-btn ant-btn-primary" type="submit">Create Order</button>
+                        </Form>
+                    </>}
             </div>
         </>
     )

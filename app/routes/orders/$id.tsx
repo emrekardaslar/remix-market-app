@@ -56,7 +56,7 @@ function OrderDetails() {
                 <Col span={6}>
                   <Card key={item.id} hoverable size='small'
                     style={{ width: 120 }}>
-                    <Meta key={item.id} title={item.name} description={`Quantity: ${item.quantity} Price: $${item.price * item.quantity}`} />
+                    <Meta key={item.id} title={item.name} description={`Quantity: ${item.quantity} Price: $${(Number(item.price * item.quantity)).toFixed(2)}`} />
                   </Card>
                 </Col>
             </>

@@ -20,5 +20,5 @@ export const getTotalPrice = (items: any) => {
     items.forEach((item:any) => {
         totalPrice += (item.price * item.quantity)
     })
-    return totalPrice
+    return totalPrice.toFixed(2)
 }

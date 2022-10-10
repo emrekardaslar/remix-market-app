@@ -1,13 +1,55 @@
-import { Link } from "@remix-run/react"
+import { LoaderFunction, json } from "@remix-run/node";
+import { Outlet, useLoaderData, useNavigate } from "@remix-run/react"
+import { Row, Col, Card, Button } from "antd";
+import Meta from "antd/lib/card/Meta";
 import PageContent from "~/components/UI/PageContent"
+import { useShoppingCart } from "~/context/CartContext";
+import { db } from "~/utils/db.server";
+
+export const loader: LoaderFunction = async () => {
+  return json(
+    await db.product.findMany(
+      {
+        where: {
+          subCategory: 'water'
+        }
+      }
+    )
+  )
+};
 
 function Water() {
+  const water = useLoaderData();
+  const navigate = useNavigate()
+  const {
+    getItemQuantity,
+    increaseCartQuantity,
+    decreaseCartQuantity,
+    removeFromCart,
+  } = useShoppingCart()
   return (
-    <PageContent>
-        <div>Water</div>
-        <Link to="./1">Water 1</Link>
-        <Link to="./2">Water 2</Link>
-    </PageContent>
+    <>
+      <PageContent  >
+        <h1>Coke</h1>
+        <Row key={Math.random()} gutter={16}>
+          {water.map((item: any) => (
+            <>
+              <div   className="site-card-wrapper">
+                <Col span={6}>
+                  <Card key={item.id} hoverable size='small' title={item.name} bordered={false}
+                    style={{ width: 240 }} cover={<img alt="example" src={item.imgLink} onClick={()=>navigate(`./${item.id}`)} />}>
+                    <Meta key={item.id} title={item.name} description={`Price: ${item.price}`} />
+                    <br></br>
+                    <Button type='primary' onClick={()=>increaseCartQuantity(item.id, item.name, item.price)}>Add to Cart</Button>
+                  </Card>
+                </Col>
+              </div>
+            </>
+          ))} 
+        </Row>
+      </PageContent>
+      <Outlet />
+    </>
   )
 }
 

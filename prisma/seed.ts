@@ -63,8 +63,16 @@ async function seed() {
     }
   }) */
 
-  const clearOrderItems = await db.orderItem.deleteMany({ })
-  const clearOrders = await db.order.deleteMany({ })
+/*   const water = await db.product.create({
+    data: {
+      name: "Aquafina",
+      price: 4.00,
+      imgLink: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqgT-aVvy9-AaxbhqALWPPBtzkmsi-1_z5Zw&usqp=CAU"
+    }
+  }) */
+
+/*   const clearOrderItems = await db.orderItem.deleteMany({ })
+  const clearOrders = await db.order.deleteMany({ }) */
 }
 
 seed();

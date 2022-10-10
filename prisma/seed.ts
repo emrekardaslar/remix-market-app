@@ -73,6 +73,7 @@ async function seed() {
 
 /*   const clearOrderItems = await db.orderItem.deleteMany({ })
   const clearOrders = await db.order.deleteMany({ }) */
+  
 }
 
 seed();

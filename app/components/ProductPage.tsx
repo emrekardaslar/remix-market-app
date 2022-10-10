@@ -15,18 +15,11 @@ function ProductPage({ product }: ProductPageProps) {
     return (
         <PageContent>
             <Row gutter={60}>
-                <Card
-                    style={{ width: 240 }}
-                    cover={<img alt={product.name} src={product.imgLink} />}
-                >
-                    <Meta title={product.name} description={product.description} />
-                </Card>
-                <Card>
+                <Card style={{ maxWidth: 800 }} cover={<img alt={product.name} src={product.imgLink}/>}>
                     <Meta title={product.name} description={product.description} />
                     <br></br>
                     <Button type='primary'
                         onClick={() => increaseCartQuantity(product.id, product.name, product.price)}>Add to Cart</Button>
-                
                 </Card>
             </Row>
         </PageContent>

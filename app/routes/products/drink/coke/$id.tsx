@@ -43,9 +43,6 @@ export const loader: LoaderFunction = async ({request, params}) => {
         })
     }
 
-    let yourDate = new Date()
-    let date = yourDate.toISOString().split('T')[0]
-
     //TODO: find if there is something like select as
     comments.forEach((comment:any) => {
         comment.author = comment.user.username
@@ -53,7 +50,7 @@ export const loader: LoaderFunction = async ({request, params}) => {
         console.log(comment.user.createdAt)
         comment.datetime = moment(comment.createdAt).fromNow()
     })
-    console.log(comments)
+
     return {product: product, comments: comments, user: user}
 };
 

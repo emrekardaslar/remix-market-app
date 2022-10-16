@@ -82,7 +82,7 @@ function Comments({ data, user }) {
         <>
             {comments.length > 0 && <CommentList comments={comments} />}
             <Comment
-                avatar={<Avatar src="https://joeschmoe.io/api/v1/random" alt={user.username} />}
+                avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
                 content={
                     <Editor
                         onChange={handleChange}

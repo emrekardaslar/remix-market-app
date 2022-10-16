@@ -55,6 +55,8 @@ model Comment {
   id String @id @default(uuid())
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   userId String
   productId String
   content String

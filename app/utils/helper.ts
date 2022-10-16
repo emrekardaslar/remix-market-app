@@ -18,7 +18,7 @@ export const getHeaderItems = (data: any, headerItems: any) => {
 export const getTotalPrice = (items: any) => {
     let totalPrice = 0.0;
     items.forEach((item:any) => {
-        totalPrice += (item.price * item.quantity)
+        totalPrice += item.product.price * item.quantity
     })
     return totalPrice.toFixed(2)
 }

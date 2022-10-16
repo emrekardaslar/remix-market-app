@@ -74,13 +74,15 @@ async function seed() {
 /*   const clearOrderItems = await db.orderItem.deleteMany({ })
   const clearOrders = await db.order.deleteMany({ }) */
 
-  const commentOnIceTea = await db.comment.create({
+/*   const commentOnIceTea = await db.comment.create({
     data: {
       productId: "fb5a8824-bd61-495c-9b4f-710b1d435ee7",
       content: "Tasteful",
       userId: "860b4da3-e1f0-434a-ab18-2bc5f5c8d7ef"
     }
-  })
+  }) */
+
+  await db.comment.deleteMany()
   
 }
 

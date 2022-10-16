@@ -6,10 +6,11 @@ import PageContent from "./UI/PageContent"
 
 interface ProductPageProps {
     product: any,
-    comments: any
+    comments: any,
+    user: any
 }
 
-function ProductPage({ product, comments }: ProductPageProps) {
+function ProductPage({ product, comments, user }: ProductPageProps) {
     const {
         increaseCartQuantity,
     } = useShoppingCart()
@@ -30,7 +31,7 @@ function ProductPage({ product, comments }: ProductPageProps) {
                         <Meta description={product.description} />
                         <br></br>
                         <Button type='primary' onClick={() => increaseCartQuantity(product.id, product.name, product.price)}>Add to Cart</Button>
-                        <Comments data = {comments}/>
+                        <Comments data = {comments} user={user}/>
                     </Col>
                 </Row>
             </>

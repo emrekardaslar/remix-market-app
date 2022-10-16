@@ -14,34 +14,17 @@ export let loader: LoaderFunction = async ({ params, request }) => {
         await db.orderItem.findMany(
             {
                 where: {
-                    orderId: params.id
-                }
-            }
-        )
-    )
-    const items = orderItems.map((item: any) => item.productId)
-
-    let products: any = (
-        await db.product.findMany(
-            {
-                where: {
-                    id: {in: items}
+                    orderId: params.id,
+                },
+                select: {
+                    product: true,
+                    quantity: true
                 }
             }
         )
     )
 
-    orderItems.map((item: any) => {
-        products.forEach((product: any) => {
-            if (item.productId === product.id) {
-          
-                product.quantity = item.quantity
-            }
-        })
-    })
-    //TODO: may be dealt using query
-
-    return { orderItems: orderItems, products: products };
+    return { orderItems: orderItems };
 };
 
 function OrderDetails() {
@@ -51,18 +34,18 @@ function OrderDetails() {
     return (
         <div style={{margin: "30px"}}>
             <h4>Order: {params.id}</h4>
-            {data.products.map((item: any) => (
+            {data.orderItems.map((item: any) => (
             <>
                 <Col span={6}>
                   <Card key={item.id} hoverable size='small'
                     style={{ width: 120 }}>
-                    <Meta key={item.id} title={item.name} description={`Quantity: ${item.quantity} Price: $${(Number(item.price * item.quantity)).toFixed(2)}`} />
+                    <Meta key={item.id} title={item.name} description={`Quantity: ${item.quantity} Price: $${(Number(item.product.price * item.quantity)).toFixed(2)}`} />
                   </Card>
                 </Col>
             </>
           ))} 
 
-          <h4>Total Price: ${getTotalPrice(data.products)}</h4>
+          <h4>Total Price: ${getTotalPrice(data.orderItems)}</h4>
         </div>
     )
 }

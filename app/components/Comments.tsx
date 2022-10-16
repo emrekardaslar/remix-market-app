@@ -16,6 +16,7 @@ interface EditorProps {
     onSubmit: () => void;
     submitting: boolean;
     value: string;
+    user: any;
 }
 
 const CommentList = ({ comments }: { comments: CommentItem[] }) => (
@@ -27,26 +28,29 @@ const CommentList = ({ comments }: { comments: CommentItem[] }) => (
     />
 );
 
-const Editor = ({ onChange, onSubmit, submitting, value }: EditorProps) => (
+const Editor = ({ onChange, onSubmit, submitting, value, user }: EditorProps) => (
     <>
         <Form.Item>
             <TextArea rows={4} onChange={onChange} value={value} />
         </Form.Item>
         <Form.Item>
-            <Button htmlType="submit" loading={submitting} onClick={onSubmit} type="primary">
-                Add Comment
-            </Button>
+            <form method="post">
+                <input type="hidden" name="data" defaultValue={JSON.stringify({ value: value, user: user })} />
+                <Button htmlType="submit" loading={submitting} onClick={onSubmit} type="primary">
+                    Add Comment
+                </Button>
+            </form>
         </Form.Item>
     </>
 );
 
-function Comments({data}) {
+
+function Comments({ data, user }) {
     const [comments, setComments] = useState<CommentItem[]>([]);
     const [submitting, setSubmitting] = useState(false);
     const [value, setValue] = useState('');
 
-    useEffect(()=>{
-        //TODO: show user name & avatar
+    useEffect(() => {
         setComments(data)
     }, [])
 
@@ -61,13 +65,13 @@ function Comments({data}) {
             setComments([
                 ...comments,
                 {
-                    author: 'Han Solo',
+                    author: user.username,
                     avatar: 'https://joeschmoe.io/api/v1/random',
                     content: <p>{value}</p>,
                     datetime: moment('2016-11-22').fromNow(),
                 },
             ]);
-        }, 1000);
+        }, 0);
     }
 
 
@@ -78,12 +82,13 @@ function Comments({data}) {
         <>
             {comments.length > 0 && <CommentList comments={comments} />}
             <Comment
-                avatar={<Avatar src="https://joeschmoe.io/api/v1/random" alt="Han Solo" />}
+                avatar={<Avatar src="https://joeschmoe.io/api/v1/random" alt={user.username} />}
                 content={
                     <Editor
                         onChange={handleChange}
                         onSubmit={handleSubmit}
                         submitting={submitting}
+                        user={user}
                         value={value}
                     />
                 }

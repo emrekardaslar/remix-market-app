@@ -34,7 +34,6 @@ authenticator.use(
 
     // login the user, this could be whatever process you want
     if (userLoggedIn) {
-      console.log(userLoggedIn)
       user = {
         name: email,
         token: `${password}-${new Date().getTime()}`,

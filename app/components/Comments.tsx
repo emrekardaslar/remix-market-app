@@ -19,14 +19,28 @@ interface EditorProps {
     user: any;
 }
 
-const CommentList = ({ comments }: { comments: CommentItem[] }) => (
-    <List
-        dataSource={comments}
-        header={`${comments.length} ${comments.length > 1 ? 'replies' : 'reply'}`}
-        itemLayout="horizontal"
-        renderItem={props => <Comment {...props} />}
-    />
-);
+
+const CommentList = ({ comments }: { comments: CommentItem[] }) => {
+    const [minValue, setMinValue] = useState(0)
+    const [maxValue, setMaxValue] = useState(5)
+    const itemPerPage = 5;
+    const handlePagination = (value: any) => {
+        setMinValue((value - 1) * itemPerPage)
+        setMaxValue(value * itemPerPage)
+    }
+
+    return (
+        <>
+            <List
+                dataSource={comments.slice(minValue, maxValue)}
+                header={`${comments.length} ${comments.length > 1 ? 'replies' : 'reply'}`}
+                itemLayout="horizontal"
+                renderItem={props => <Comment {...props} />}
+            />
+            <Pagination defaultCurrent={1} total={comments.length} defaultPageSize={5} onChange={handlePagination} />
+        </>
+    );
+}
 
 const Editor = ({ onChange, onSubmit, submitting, value, user }: EditorProps) => (
     <>
@@ -93,7 +107,7 @@ function Comments({ data, user }) {
                     />
                 }
             />
-            <Pagination defaultCurrent={1} total={50} />
+
         </>
     )
 }

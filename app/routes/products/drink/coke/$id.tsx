@@ -26,6 +26,9 @@ export const loader: LoaderFunction = async ({request, params}) => {
                     username: true
                 }
             }
+        },
+        orderBy: {
+            createdAt: 'desc'
         }
     })
 
@@ -47,7 +50,6 @@ export const loader: LoaderFunction = async ({request, params}) => {
     comments.forEach((comment:any) => {
         comment.author = comment.user.username
         comment.avatar= 'https://joeschmoe.io/api/v1/random'
-        console.log(comment.user.createdAt)
         comment.datetime = moment(comment.createdAt).fromNow()
     })
 

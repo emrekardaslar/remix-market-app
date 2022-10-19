@@ -26,6 +26,9 @@ export const loader: LoaderFunction = async ( {params, request} ) => {
                     username: true
                 }
             }
+        },
+        orderBy: {
+            createdAt: 'desc'
         }
     })
 
@@ -45,7 +48,6 @@ export const loader: LoaderFunction = async ( {params, request} ) => {
     comments.forEach((comment:any) => {
         comment.author = comment.user.username
         comment.avatar= 'https://joeschmoe.io/api/v1/random'
-        console.log(comment.user.createdAt)
         comment.datetime = moment(comment.createdAt).fromNow()
     })
     //TODO: remove code duplication
@@ -55,7 +57,6 @@ export const loader: LoaderFunction = async ( {params, request} ) => {
 export const action: ActionFunction = async ({ request, params }): Promise<any> => {
     const formData = await request.formData();
     const response = JSON.parse(formData.get("data"))
-    console.log(response)
     await db.comment.create({
         data: {
             content: response.value,

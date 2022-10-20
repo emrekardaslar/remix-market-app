@@ -18,6 +18,7 @@ export const loader: LoaderFunction = async ({request, params}) => {
             productId: product.id
         },
         select: {
+            id: true,
             productId: true,
             content: true,
             createdAt: true,
@@ -60,13 +61,26 @@ export const action: ActionFunction = async ({ request, params }): Promise<any> 
     const formData = await request.formData();
     const response = JSON.parse(formData.get("data"))
 
-    await db.comment.create({
-        data: {
-            content: response.value,
-            productId: params.id,
-            userId: response.user.id
-        }
-    })
+    if (request.method == 'DELETE') {
+        //delete comment
+        const idToDelete = formData.get('commentToDelete')
+        const deletedComment = await db.comment.delete({
+            where: {
+                id: idToDelete
+            }
+        })
+        return {deletedComment}
+    }
+
+    else {
+        await db.comment.create({
+            data: {
+                content: response.value,
+                productId: params.id,
+                userId: response.user.id
+            }
+        })
+    }
 
     return {}
 };

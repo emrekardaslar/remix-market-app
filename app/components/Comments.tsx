@@ -1,3 +1,4 @@
+import { useFetcher } from '@remix-run/react';
 import { Input, List, Form, Button, Comment, Avatar, Pagination } from 'antd';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react'
@@ -20,14 +21,31 @@ interface EditorProps {
 }
 
 
-const CommentList = ({ comments }: { comments: CommentItem[] }) => {
+const CommentList = ({ comments, user }: { comments: CommentItem[], user: any}) => {
     const [minValue, setMinValue] = useState(0)
     const [maxValue, setMaxValue] = useState(5)
+    const fetcher = useFetcher();
     const itemPerPage = 5;
     const handlePagination = (value: any) => {
         setMinValue((value - 1) * itemPerPage)
         setMaxValue(value * itemPerPage)
     }
+
+
+    async function deleteComment(id: any) {
+        fetcher.submit(
+            {commentToDelete: id},
+            { method: "delete" }
+        );
+        //TODO: bad solution
+        setTimeout(()=>{
+            location.reload();
+        }, 0)
+    }
+
+    const actions = [
+        <span name='delete' value='delete' key="comment-basic-reply-to" onClick={(c)=>{deleteComment(c.currentTarget.parentNode?.parentNode?.parentNode?.parentNode?.parentElement?.id)}}>Delete</span>
+    ]
 
     return (
         <>
@@ -35,7 +53,10 @@ const CommentList = ({ comments }: { comments: CommentItem[] }) => {
                 dataSource={comments.slice(minValue, maxValue)}
                 header={`${comments.length} ${comments.length > 1 ? 'replies' : 'reply'}`}
                 itemLayout="horizontal"
-                renderItem={props => <Comment {...props} />}
+                renderItem={props => 
+                <>
+                    <Comment {...props} actions={props.author == user.username ? actions : []}/>
+                </>}
             />
             <Pagination defaultCurrent={1} total={comments.length} defaultPageSize={5} onChange={handlePagination} />
         </>
@@ -94,7 +115,7 @@ function Comments({ data, user }) {
     };
     return (
         <>
-            {comments.length > 0 && <CommentList comments={comments} />}
+            {comments.length > 0 && <CommentList comments={comments} user={user}/>}
             <Comment
                 avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
                 content={

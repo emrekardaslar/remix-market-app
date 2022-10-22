@@ -5,8 +5,8 @@ import ProductPage from '~/components/ProductPage';
 import { getUserId } from '~/services/sesssion.server';
 import { db } from '~/utils/db.server';
 
-export const loader: LoaderFunction = async ({request, params}) => {
-    
+export const loader: LoaderFunction = async ({ request, params }) => {
+
     const product = await db.product.findFirst({
         where: {
             id: params.id
@@ -48,19 +48,20 @@ export const loader: LoaderFunction = async ({request, params}) => {
     }
 
     //TODO: find if there is something like select as
-    comments.forEach((comment:any) => {
+    comments.forEach((comment: any) => {
         comment.author = comment.user.username
-        comment.avatar= 'https://joeschmoe.io/api/v1/random'
+        comment.avatar = 'https://joeschmoe.io/api/v1/random'
         comment.datetime = moment(comment.createdAt).fromNow()
     })
 
-    return {product: product, comments: comments, user: user}
+    return { product: product, comments: comments, user: user }
 };
 
 export const action: ActionFunction = async ({ request, params }): Promise<any> => {
     const formData = await request.formData();
     const response = JSON.parse(formData.get("data"))
-
+    const edit = JSON.parse(formData.get("commentToEdit"))
+    
     if (request.method == 'DELETE') {
         //delete comment
         const idToDelete = formData.get('commentToDelete')
@@ -69,17 +70,30 @@ export const action: ActionFunction = async ({ request, params }): Promise<any> 
                 id: idToDelete
             }
         })
-        return {deletedComment}
+        return { deletedComment }
     }
 
     else {
-        await db.comment.create({
-            data: {
-                content: response.value,
-                productId: params.id,
-                userId: response.user.id
-            }
-        })
+        //create or update comment
+        if (formData && edit) {
+            await db.comment.update({
+                data: {
+                    content: edit.content
+                },
+                where: {
+                    id: edit.id
+                }
+            })
+        }
+        else {
+            await db.comment.create({
+                data: {
+                    content: response.value,
+                    productId: params.id,
+                    userId: response.user.id
+                }
+            })
+        }
     }
 
     return {}
@@ -88,7 +102,7 @@ export const action: ActionFunction = async ({ request, params }): Promise<any> 
 function CokeDetail() {
     const data = useLoaderData()
     return (
-        <ProductPage product={data.product} comments = {data.comments} user={data.user}/>
+        <ProductPage product={data.product} comments={data.comments} user={data.user} />
     )
 }
 

@@ -1,5 +1,5 @@
 import { useFetcher } from '@remix-run/react';
-import { Input, List, Form, Button, Comment, Avatar, Pagination, Modal } from 'antd';
+import { Input, List, Form, Button, Comment, Avatar, Pagination, Modal, notification } from 'antd';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react'
 
@@ -18,10 +18,21 @@ interface EditorProps {
     submitting: boolean;
     value: string;
     user: any;
+    setComments: () => void;
 }
 
+const deleteNotification = () => {
+    notification.open({
+      message: 'Comment Deleted',
+      description:
+        'Your comment is successfuly deleted.',
+      onClick: () => {
+        console.log('Notification Clicked!');
+      },
+    });
+  };
 
-const CommentList = ({ comments, user }: { comments: CommentItem[], user: any }) => {
+const CommentList = ({ comments, user, setComments }: { comments: CommentItem[], user: any, setComments: any }) => {
     const [minValue, setMinValue] = useState(0)
     const [maxValue, setMaxValue] = useState(5)
     const fetcher = useFetcher();
@@ -62,10 +73,10 @@ const CommentList = ({ comments, user }: { comments: CommentItem[], user: any })
             { commentToDelete: id },
             { method: "delete" }
         );
-        //TODO: bad solution
-        setTimeout(() => {
-            location.reload();
-        }, 0)
+
+        let newComments = comments.filter(comment=> comment.id !== id)
+        setComments(newComments)
+        deleteNotification();
     }
 
     async function editComment(id: any) {
@@ -155,7 +166,7 @@ function Comments({ data, user }) {
     };
     return (
         <>
-            {comments.length > 0 && <CommentList comments={comments} user={user} />}
+            {comments.length > 0 && <CommentList comments={comments} user={user} setComments={setComments}/>}
             <Comment
                 avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
                 content={

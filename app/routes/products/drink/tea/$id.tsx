@@ -6,7 +6,8 @@ import ProductPage from '~/components/ProductPage';
 import { getUserId } from '~/services/sesssion.server';
 import { db } from '~/utils/db.server';
 
-export const loader: LoaderFunction = async ( {params, request} ) => {
+export const loader: LoaderFunction = async ({ request, params }) => {
+
     const product = await db.product.findFirst({
         where: {
             id: params.id
@@ -18,6 +19,7 @@ export const loader: LoaderFunction = async ( {params, request} ) => {
             productId: product.id
         },
         select: {
+            id: true,
             productId: true,
             content: true,
             createdAt: true,
@@ -45,25 +47,55 @@ export const loader: LoaderFunction = async ( {params, request} ) => {
             }
         })
     }
-    comments.forEach((comment:any) => {
+
+    //TODO: find if there is something like select as
+    comments.forEach((comment: any) => {
         comment.author = comment.user.username
-        comment.avatar= 'https://joeschmoe.io/api/v1/random'
+        comment.avatar = 'https://joeschmoe.io/api/v1/random'
         comment.datetime = moment(comment.createdAt).fromNow()
     })
-    //TODO: remove code duplication
-    return {product: product, comments: comments, user: user}
-}
+
+    return { product: product, comments: comments, user: user }
+};
 
 export const action: ActionFunction = async ({ request, params }): Promise<any> => {
     const formData = await request.formData();
     const response = JSON.parse(formData.get("data"))
-    await db.comment.create({
-        data: {
-            content: response.value,
-            productId: params.id,
-            userId: response.user.id
+    const edit = JSON.parse(formData.get("commentToEdit"))
+    
+    if (request.method == 'DELETE') {
+        //delete comment
+        const idToDelete = formData.get('commentToDelete')
+        const deletedComment = await db.comment.delete({
+            where: {
+                id: idToDelete
+            }
+        })
+        return { deletedComment }
+    }
+
+    else {
+        //create or update comment
+        if (formData && edit) {
+            await db.comment.update({
+                data: {
+                    content: edit.content
+                },
+                where: {
+                    id: edit.id
+                }
+            })
         }
-    })
+        else {
+            await db.comment.create({
+                data: {
+                    content: response.value,
+                    productId: params.id,
+                    userId: response.user.id
+                }
+            })
+        }
+    }
 
     return {}
 };

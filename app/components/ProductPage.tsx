@@ -1,5 +1,7 @@
+import { useFetcher, useLoaderData } from "@remix-run/react";
 import { Row, Card, Button, Col, Rate, notification } from "antd"
 import Meta from "antd/lib/card/Meta"
+import { useEffect, useState } from "react";
 import { useShoppingCart } from "~/context/CartContext"
 import Comments from "./Comments";
 import PageContent from "./UI/PageContent"
@@ -14,6 +16,44 @@ function ProductPage({ product, comments, user }: ProductPageProps) {
     const {
         increaseCartQuantity,
     } = useShoppingCart()
+    const [value, setValue] = useState(product.rating);
+    const fetcher = useFetcher();
+    const data = useLoaderData();
+
+    const setRating = () => {
+        const ratings = data.rating;
+        let counter = 0;
+        let total = 0;
+        ratings.forEach((rating: any) => {
+            total += rating.value 
+            counter++;
+        });
+        if (counter == 0) {
+            setValue(5)
+        }
+        else {
+            const average = total/counter;
+            setValue(average)
+        }
+    }
+
+    useEffect(()=>{
+        setRating()
+    }, [])
+    
+    const updateRating = (val: number) => {
+        const rating = {
+            value: val,
+            userId: user.id,
+            productId: product.id
+        }
+
+        fetcher.submit(
+            {rating: JSON.stringify(rating)},
+            {method: 'post'}
+        )
+        setValue(val)
+    }
 
     const cartAddedNotification = () => {
         notification.open({
@@ -37,7 +77,7 @@ function ProductPage({ product, comments, user }: ProductPageProps) {
                     </Col>
                     <Col span={12}>
                         <h2>{product.name}</h2>
-                        <Rate allowHalf defaultValue={4.5} />
+                        <Rate allowHalf value={value} onChange={updateRating}/>
                         <h4>Price: ${product.price}</h4>
                         <Meta description={product.description} />
                         <br></br>

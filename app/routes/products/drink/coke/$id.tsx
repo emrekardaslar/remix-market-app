@@ -54,14 +54,21 @@ export const loader: LoaderFunction = async ({ request, params }) => {
         comment.datetime = moment(comment.createdAt).fromNow()
     })
 
-    return { product: product, comments: comments, user: user }
+    const rating = await db.rating.findMany({
+        where: {
+            productId: product?.id
+        }
+    })
+
+    return { product: product, comments: comments, user: user, rating: rating }
 };
 
 export const action: ActionFunction = async ({ request, params }): Promise<any> => {
     const formData = await request.formData();
     const response = JSON.parse(formData.get("data"))
     const edit = JSON.parse(formData.get("commentToEdit"))
-    
+    const rating = JSON.parse(formData.get("rating"))
+
     if (request.method == 'DELETE') {
         //delete comment
         const idToDelete = formData.get('commentToDelete')
@@ -73,9 +80,46 @@ export const action: ActionFunction = async ({ request, params }): Promise<any> 
         return { deletedComment }
     }
 
-    else {
+    else if (request.method === 'POST') {
+        //update rating
+        if (formData && rating) {
+            //check if user has rating
+            const doesExists = await db.rating.findFirst({
+                where: {
+                   AND: [
+                    {productId: rating.productId},
+                    {userId: rating.userId}
+                   ]
+                }
+            })
+            let userRating: any = null;
+            if (doesExists) {
+                //update
+                userRating = await db.rating.update({
+                    data: {
+                        userId: rating.userId,
+                        productId: rating.productId,
+                        value: rating.value
+                    },
+                    where: {
+                        id: doesExists.id
+                     }
+                })
+            }
+            else {
+                //create
+                userRating = await db.rating.create({
+                    data: {
+                        userId: rating.userId,
+                        productId: rating.productId,
+                        value: rating.value
+                    }
+                })
+            }
+            return {rating: userRating}
+        }
         //create or update comment
-        if (formData && edit) {
+        else if (formData && edit) {
             await db.comment.update({
                 data: {
                     content: edit.content

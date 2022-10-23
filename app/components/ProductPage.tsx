@@ -1,4 +1,4 @@
-import { Row, Card, Button, Col, Rate } from "antd"
+import { Row, Card, Button, Col, Rate, notification } from "antd"
 import Meta from "antd/lib/card/Meta"
 import { useShoppingCart } from "~/context/CartContext"
 import Comments from "./Comments";
@@ -15,6 +15,17 @@ function ProductPage({ product, comments, user }: ProductPageProps) {
         increaseCartQuantity,
     } = useShoppingCart()
 
+    const cartAddedNotification = () => {
+        notification.open({
+            message: 'Item Added',
+            description:
+                'Item added to your cart',
+            onClick: () => {
+                console.log('Notification Clicked!');
+            },
+        });
+    };
+
     return (
         <PageContent>
             <>
@@ -30,7 +41,7 @@ function ProductPage({ product, comments, user }: ProductPageProps) {
                         <h4>Price: ${product.price}</h4>
                         <Meta description={product.description} />
                         <br></br>
-                        <Button type='primary' onClick={() => increaseCartQuantity(product.id, product.name, product.price)}>Add to Cart</Button>
+                        <Button type='primary' onClick={() => {increaseCartQuantity(product.id, product.name, product.price); cartAddedNotification();}}>Add to Cart</Button>
                         <Comments data = {comments} user={user}/>
                     </Col>
                 </Row>

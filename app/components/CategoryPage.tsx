@@ -1,5 +1,5 @@
 import { useNavigate } from '@remix-run/react'
-import { Row, Col, Card, Button } from 'antd'
+import { Row, Col, Card, Button, notification } from 'antd'
 import Meta from 'antd/lib/card/Meta'
 import PageContent from './UI/PageContent'
 import { useShoppingCart } from "~/context/CartContext";
@@ -13,6 +13,18 @@ function CategoryPage({ data }: CategoryProps) {
     const {
         increaseCartQuantity,
     } = useShoppingCart()
+
+    const cartAddedNotification = () => {
+        notification.open({
+            message: 'Item Added',
+            description:
+                'Item added to your cart',
+            onClick: () => {
+                console.log('Notification Clicked!');
+            },
+        });
+    };
+
     return (
         <>
             <PageContent>
@@ -25,7 +37,7 @@ function CategoryPage({ data }: CategoryProps) {
                                         style={{ width: 240 }} cover={<img alt="example" src={item.imgLink} onClick={() => navigate(`./${item.id}`)} />}>
                                         <Meta key={item.id} title={item.name} description={`Price: ${item.price}`} />
                                         <br></br>
-                                        <Button type='primary' onClick={() => increaseCartQuantity(item.id, item.name, item.price)}>Add to Cart</Button>
+                                        <Button type='primary' onClick={() => { increaseCartQuantity(item.id, item.name, item.price); cartAddedNotification(); }}>Add to Cart</Button>
                                     </Card>
                                 </Col>
                             </div>

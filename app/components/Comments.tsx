@@ -149,13 +149,13 @@ function Comments({ data, user }) {
             setSubmitting(false);
             setValue('');
             setComments([
-                ...comments,
                 {
                     author: user.username,
                     avatar: 'https://joeschmoe.io/api/v1/random',
                     content: <p>{value}</p>,
                     datetime: moment('2016-11-22').fromNow(),
                 },
+                ...comments
             ]);
         }, 0);
     }

@@ -77,7 +77,7 @@ function ProductPage({ product, comments, user }: ProductPageProps) {
     return (
         <PageContent>
             <>
-                <Row>
+                <Row gutter={[16, 16]}>
                     <Col span={12}>
                         <Card style={{ maxWidth: 800 }} cover={<img alt={product.name} src={product.imgLink} />}>
                             <Meta title={product.name} description={product.description} />

@@ -1,5 +1,5 @@
 import { useFetcher, useLoaderData } from "@remix-run/react";
-import { Row, Card, Button, Col, Rate, notification } from "antd"
+import { Row, Card, Button, Col, Rate, notification, Badge } from "antd"
 import Meta from "antd/lib/card/Meta"
 import { useEffect, useState } from "react";
 import { useShoppingCart } from "~/context/CartContext"
@@ -15,8 +15,10 @@ interface ProductPageProps {
 function ProductPage({ product, comments, user }: ProductPageProps) {
     const {
         increaseCartQuantity,
+        getItemQuantity
     } = useShoppingCart()
     const [value, setValue] = useState(product.rating);
+    const [itemQuantity, setItemQuantity] = useState(0);
     const fetcher = useFetcher();
     const data = useLoaderData();
 
@@ -37,8 +39,13 @@ function ProductPage({ product, comments, user }: ProductPageProps) {
         }
     }
 
+    const setItemQty = () => {
+        setItemQuantity(getItemQuantity(product.id))
+    }
+
     useEffect(()=>{
         setRating()
+        setItemQty()
     }, [])
     
     const updateRating = (val: number) => {
@@ -64,6 +71,7 @@ function ProductPage({ product, comments, user }: ProductPageProps) {
                 console.log('Notification Clicked!');
             },
         });
+        setItemQuantity(itemQuantity+1)
     };
 
     return (
@@ -81,7 +89,9 @@ function ProductPage({ product, comments, user }: ProductPageProps) {
                         <h4>Price: ${product.price}</h4>
                         <Meta description={product.description} />
                         <br></br>
-                        <Button type='primary' onClick={() => {increaseCartQuantity(product.id, product.name, product.price); cartAddedNotification();}}>Add to Cart</Button>
+                        <Badge count={itemQuantity} status={"success"} showZero>
+                            <Button type='primary' onClick={() => {increaseCartQuantity(product.id, product.name, product.price); cartAddedNotification();}}>Add to Cart</Button>
+                        </Badge> 
                         <Comments data = {comments} user={user}/>
                     </Col>
                 </Row>

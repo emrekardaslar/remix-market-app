@@ -53,7 +53,7 @@ cp -R ../my-old-remix-app/app app
 ```
 
 ### Project Installation
-* Install dependencies
+* Install dependencies by running:
 ```
 npm install
 ```

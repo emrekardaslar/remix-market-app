@@ -82,7 +82,18 @@ async function seed() {
     }
   }) */
 
-  await db.comment.deleteMany()
+ // await db.comment.deleteMany()
+
+ const chocolate = await db.product.create({
+  data: {
+    name: "Milka",
+    price: 7.45,
+    imgLink: "https://cdn.shopify.com/s/files/1/0413/1107/6505/products/07040550-5608ae-1650x1650_1024x.jpg?v=1592850335",
+    category: "Food",
+    subCategory: "Chocolate",
+    description: "Milka is one of the world's most beloved – and recognizable – chocolate brands. Made with Alpine milk, Milka has been delighting consumers in Germany and beyond since 1901. The brand, with its unique lilac-colored packaging and Lila, the Milka cow, have a dedicated “cow-munity” of adoring fans around the world!"
+  }
+})
   
 }
 

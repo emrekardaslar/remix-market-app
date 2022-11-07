@@ -1,6 +1,7 @@
 import { useFetcher, useLoaderData } from "@remix-run/react";
 import { Row, Card, Button, Col, Rate, notification, Badge } from "antd"
 import Meta from "antd/lib/card/Meta"
+import { ProductImages } from "emrekardaslar-uikit";
 import { useEffect, useState } from "react";
 import { useShoppingCart } from "~/context/CartContext"
 import Comments from "./Comments";
@@ -27,14 +28,14 @@ function ProductPage({ product, comments, user }: ProductPageProps) {
         let counter = 0;
         let total = 0;
         ratings.forEach((rating: any) => {
-            total += rating.value 
+            total += rating.value
             counter++;
         });
         if (counter == 0) {
             setValue(5)
         }
         else {
-            const average = total/counter;
+            const average = total / counter;
             setValue(average)
         }
     }
@@ -43,11 +44,11 @@ function ProductPage({ product, comments, user }: ProductPageProps) {
         setItemQuantity(getItemQuantity(product.id))
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         setRating()
         setItemQty()
     }, [])
-    
+
     const updateRating = (val: number) => {
         const rating = {
             value: val,
@@ -56,8 +57,8 @@ function ProductPage({ product, comments, user }: ProductPageProps) {
         }
 
         fetcher.submit(
-            {rating: JSON.stringify(rating)},
-            {method: 'post'}
+            { rating: JSON.stringify(rating) },
+            { method: 'post' }
         )
         setValue(val)
     }
@@ -71,30 +72,28 @@ function ProductPage({ product, comments, user }: ProductPageProps) {
                 console.log('Notification Clicked!');
             },
         });
-        setItemQuantity(itemQuantity+1)
+        setItemQuantity(itemQuantity + 1)
     };
 
     return (
         <PageContent>
             <>
-                <Row gutter={[16, 16]}>
-                    <Col span={12}>
-                        <Card style={{ maxWidth: 800 }} cover={<img alt={product.name} src={product.imgLink} />}>
-                            <Meta title={product.name} description={product.description} />
-                        </Card>
-                    </Col>
-                    <Col span={12}>
+                <ProductImages content={
+                    <>
                         <h2>{product.name}</h2>
-                        <Rate allowHalf value={value} onChange={updateRating}/>
+                        <Rate allowHalf value={value} onChange={updateRating} />
                         <h4>Price: ${product.price}</h4>
                         <Meta description={product.description} />
                         <br></br>
                         <Badge count={itemQuantity} status={"success"} showZero>
-                            <Button type='primary' onClick={() => {increaseCartQuantity(product.id, product.name, product.price); cartAddedNotification();}}>Add to Cart</Button>
-                        </Badge> 
-                        <Comments data = {comments} user={user}/>
-                    </Col>
-                </Row>
+                            <Button type='primary' onClick={() => { increaseCartQuantity(product.id, product.name, product.price); cartAddedNotification(); }}>Add to Cart</Button>
+                        </Badge>
+                        <Comments data={comments} user={user} />
+
+                    </>
+                } imageLinks={[
+                    product.imgLink
+                ]} />
             </>
         </PageContent>
     )

@@ -92,7 +92,8 @@ function ProductPage({ product, comments, user }: ProductPageProps) {
 
                     </>
                 } imageLinks={[
-                    product.imgLink
+                    product.imgLink,
+                    'https://static.insales-cdn.com/images/products/1/5187/447575107/cocacola_can.png'
                 ]} />
             </>
         </PageContent>

@@ -33,8 +33,13 @@ function CategoryPage({ data }: CategoryProps) {
                         <>
                             <div className="site-card-wrapper">
                                 <Col span={6}>
-                                    <Card key={item.id} hoverable size='small' title={item.name} bordered={false}
-                                        style={{ width: 240 }} cover={<img alt="example" src={item.imgLink} onClick={() => navigate(`./${item.id}`)} />}>
+                                    <Card key={item.id} hoverable  title={item.name} bordered={false}
+                                        style={{ width: "15rem" }} 
+                                        cover={
+                                            <div style={{ overflow: "hidden", height: "15rem"}}>
+                                                <img alt="example" style={{ height: "100%" }} src={item.imgLink} onClick={() => navigate(`./${item.id}`)} />
+                                            </div>
+                                        }>
                                         <Meta key={item.id} title={item.name} description={`Price: ${item.price}`} />
                                         <br></br>
                                         <Button type='primary' onClick={() => { increaseCartQuantity(item.id, item.name, item.price); cartAddedNotification(); }}>Add to Cart</Button>

@@ -1,4 +1,4 @@
-import { useFetcher, useLoaderData } from "@remix-run/react";
+import { useFetcher, useLoaderData, useNavigate } from "@remix-run/react";
 import { Row, Card, Button, Col, Rate, notification, Badge } from "antd"
 import Meta from "antd/lib/card/Meta"
 import { ProductImages } from "emrekardaslar-uikit";
@@ -22,6 +22,7 @@ function ProductPage({ product, comments, user }: ProductPageProps) {
     const [itemQuantity, setItemQuantity] = useState(0);
     const fetcher = useFetcher();
     const data = useLoaderData();
+    const navigate = useNavigate()
 
     const setRating = () => {
         const ratings = data.rating;
@@ -63,13 +64,13 @@ function ProductPage({ product, comments, user }: ProductPageProps) {
         setValue(val)
     }
 
-    const cartAddedNotification = () => {
+    const cartAddedNotification = (name: string, price: number) => {
         notification.open({
-            message: 'Item Added',
+            message: `${name} added to your cart`,
             description:
-                'Item added to your cart',
+                `${name} added to your cart for  $ ${price}`,
             onClick: () => {
-                console.log('Notification Clicked!');
+                navigate("/cart")
             },
         });
         setItemQuantity(itemQuantity + 1)
@@ -86,7 +87,7 @@ function ProductPage({ product, comments, user }: ProductPageProps) {
                         <Meta description={product.description} />
                         <br></br>
                         <Badge count={itemQuantity} status={"success"} showZero>
-                            <Button type='primary' onClick={() => { increaseCartQuantity(product.id, product.name, product.price); cartAddedNotification(); }}>Add to Cart</Button>
+                            <Button type='primary' onClick={() => { increaseCartQuantity(product.id, product.name, product.price); cartAddedNotification(product.name, product.price); }}>Add to Cart</Button>
                         </Badge>
                         <Comments data={comments} user={user} />
 

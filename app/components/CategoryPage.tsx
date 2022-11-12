@@ -14,13 +14,13 @@ function CategoryPage({ data }: CategoryProps) {
         increaseCartQuantity,
     } = useShoppingCart()
 
-    const cartAddedNotification = () => {
+    const cartAddedNotification = (name: string, price: number) => {
         notification.open({
-            message: 'Item Added',
+            message: `${name} added to your cart`,
             description:
-                'Item added to your cart',
+                `${name} added to your cart for  $ ${price}`,
             onClick: () => {
-                console.log('Notification Clicked!');
+                navigate("/cart")
             },
         });
     };
@@ -42,7 +42,7 @@ function CategoryPage({ data }: CategoryProps) {
                                         }>
                                         <Meta key={item.id} title={item.name} description={`Price: ${item.price}`} />
                                         <br></br>
-                                        <Button type='primary' onClick={() => { increaseCartQuantity(item.id, item.name, item.price); cartAddedNotification(); }}>Add to Cart</Button>
+                                        <Button type='primary' onClick={() => { increaseCartQuantity(item.id, item.name, item.price); cartAddedNotification(item.name, item.price); }}>Add to Cart</Button>
                                     </Card>
                                 </Col>
                             </div>

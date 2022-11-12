@@ -45,6 +45,7 @@ model Product {
   name String
   price Float
   imgLink String
+  imgList String[]
   category String @default("")
   subCategory String @default("")
   description String @default("")

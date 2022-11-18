@@ -18,8 +18,8 @@ async function seed() {
       subCategory: "coke",
       description: "Coca-Cola, or Coke, is a carbonated soft drink manufactured by the Coca-Cola Company. Originally marketed as a temperance drink and intended as a patent medicine, it was invented in the late 19th century by John Stith Pemberton in Atlanta, Georgia.",
       price: 11.5,
-      imgLink: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqgT-aVvy9-AaxbhqALWPPBtzkmsi-1_z5Zw&usqp=CAU",
-      imgList: ["test1", "test2"]
+      imgLink: "http://cdn.shopify.com/s/files/1/0269/8575/8790/products/Coca_cola_355ml_c3458b36-1bfd-4241-9834-5dec83b0378b.png?v=1618852366",
+      imgList: ["https://hancionline.com/wp-content/uploads/2020/04/coca-cola-600x600.jpg"]
     }
   })
 
@@ -30,8 +30,8 @@ async function seed() {
       subCategory: "coke",
       description: "Pepsi is a carbonated soft drink manufactured by PepsiCo. Originally created and developed in 1893 by Caleb Bradham and introduced as Brad's Drink",
       price: 11.45,
-      imgLink: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiByxQjdaBHgB0he4ip9G7w5nuYbbActS5pQ&usqp=CAU",
-      imgList: ["test1", "test2"]
+      imgLink: "https://st3.depositphotos.com/8478842/18358/v/450/depositphotos_183583568-stock-illustration-pepsi-cola-coda-drinks.jpg",
+      imgList: ["https://www.knjaznatura.co.rs/files/thumbs/files/files/thumbs_600/1300001542_600_600px.jpg"]
     }
   })
 
@@ -44,7 +44,7 @@ async function seed() {
       description: "Iced tea (or ice tea)[1] is a form of cold tea. Though it is usually served in a glass with ice, it can refer to any tea that has been chilled or cooled.",
       price: 11.00,
       imgLink: "https://ayb.akinoncdn.com/products/2022/04/12/3560/bfe7d2f6-d113-4e28-b1ce-8522e5023f82_size780x780_quality60_cropCenter.jpg",
-      imgList: ["test1", "test2"]
+      imgList: ["https://reimg-carrefour.mncdn.com/mnresize/600/600/productimage/30141743/30141743_0_MC/8809365700658_1600421577264.jpg"]
     }
   })
 
@@ -82,8 +82,8 @@ async function seed() {
       category: "drink",
       subCategory: "water",
       description: "Fresh and pure, Aquafina is the perfect companion for happy bodies everywhere.",
-      imgLink: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqgT-aVvy9-AaxbhqALWPPBtzkmsi-1_z5Zw&usqp=CAU",
-      imgList: ["test1", "test2"]
+      imgLink: "https://objectstorage.ap-mumbai-1.oraclecloud.com/n/softlogicbicloud/b/cdn/o/products/600-600/119329--01--1635243305.jpeg",
+      imgList: ["https://d10ui928gx5i4g.cloudfront.net/media/cache/03/e2/03e2f3b2f5c559475a77a4efb74e8db5.jpg"]
     }
   })
 
@@ -106,9 +106,9 @@ async function seed() {
     price: 7.45,
     imgLink: "https://cdn.shopify.com/s/files/1/0413/1107/6505/products/07040550-5608ae-1650x1650_1024x.jpg?v=1592850335",
     category: "food",
-    subCategory: "Chocolate",
+    subCategory: "chocolate",
     description: "Milka is one of the world's most beloved – and recognizable – chocolate brands. Made with Alpine milk, Milka has been delighting consumers in Germany and beyond since 1901. The brand, with its unique lilac-colored packaging and Lila, the Milka cow, have a dedicated “cow-munity” of adoring fans around the world!",
-    imgList: ["test1", "test2"]
+    imgList: ["https://m.media-amazon.com/images/I/61h-RNC6V-L.jpg"]
   }
 })
   

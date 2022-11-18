@@ -3,6 +3,7 @@ import { Form, Outlet, useActionData } from '@remix-run/react'
 import HeaderC from '~/components/Header'
 import { register } from '~/services/sesssion.server';
 import { db } from '~/utils/db.server';
+import { getHeaderItems } from '~/utils/helper';
 import headerItems from "../mock/headerItems"
 import { createUserSession } from "../services/sesssion.server";
 
@@ -53,9 +54,10 @@ export let action: ActionFunction = async ({
 
 function Register() {
     const actionData = useActionData<ActionData | undefined>();
+    let items = getHeaderItems(actionData, headerItems)
     return (
         <>
-            <HeaderC items={headerItems} selectedKey='Register' />
+            <HeaderC items={items} selectedKey='Register' />
             <Form
                 method="post"
                 aria-describedby={

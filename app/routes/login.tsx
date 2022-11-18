@@ -3,6 +3,7 @@ import { Form, Outlet, useActionData, useLoaderData } from "@remix-run/react"
 import HeaderC from "~/components/Header"
 import authenticator from "~/services/auth.service";
 import { createUserSession, login, sessionStorage } from "~/services/sesssion.server";
+import { getHeaderItems } from "~/utils/helper";
 import headerItems from "../mock/headerItems"
 
 type ActionData = {
@@ -52,11 +53,12 @@ export const loader: LoaderFunction = async ({ request }) => {
 };
 
 function Login() {
-  const loaderData = useLoaderData();
+  const data = useLoaderData();
+  let items = getHeaderItems(data, headerItems)
   const actionData = useActionData<ActionData | undefined>();
   return (
     <>
-      <HeaderC items={headerItems} selectedKey='Login' />
+      <HeaderC items={items} selectedKey='Login' />
       <Form
                 method="post"
                 aria-describedby={

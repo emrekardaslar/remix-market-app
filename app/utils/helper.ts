@@ -10,7 +10,13 @@ export const getHeaderItems = (data: any, headerItems: any) => {
         items = newItems;
     }
     else {
-        items = headerItems;
+        let newItems: { key: any; label: any; }[] = [];
+        Object.keys(items).forEach(idx => {
+            if (items[idx].key !== "Logout") {
+                newItems.push({key: items[idx].key, label: items[idx].label})
+            }
+        })
+        items = newItems;
     }
     return items;
 }

@@ -58,8 +58,9 @@ cp -R ../my-old-remix-app/app app
 npm install
 ```
 * Create .env file, copy the URL in sample.env to your environment file and modify it
-* Generate database tables by running:
+* Generate database tables and generate data by running:
 ```
 npm i -g prisma
 prisma db push 
+npx prisma db seed
 ```

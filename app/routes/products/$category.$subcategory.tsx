@@ -22,7 +22,7 @@ export const meta: MetaFunction = () => ({
     viewport: "width=device-width,initial-scale=1",
   });
 
-function CategorySlug() {
+function Subcategory() {
     const data = useLoaderData();
     return (
         <>
@@ -32,4 +32,4 @@ function CategorySlug() {
     )
 }
 
-export default CategorySlug
+export default Subcategory

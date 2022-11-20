@@ -18,7 +18,7 @@ export let loader: LoaderFunction = async ({ request, params }) => {
 }
 
 
-function CategorySlug() {
+function Category() {
     const data = useLoaderData()
     const navigate = useNavigate();
     const clickHandler = (product: Product) => {
@@ -33,4 +33,4 @@ function CategorySlug() {
     )
 }
 
-export default CategorySlug
+export default Category

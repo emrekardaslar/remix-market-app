@@ -6,7 +6,6 @@ import { getUserId } from '~/services/sesssion.server';
 import { db } from '~/utils/db.server';
 
 export const loader: LoaderFunction = async ({ request, params }) => {
-
     const product = await db.product.findFirst({
         where: {
             id: params.id
@@ -143,11 +142,11 @@ export const action: ActionFunction = async ({ request, params }): Promise<any> 
     return {}
 };
 
-function TeaDetail() {
+function ProductDetail() {
     const data = useLoaderData()
     return (
-        <ProductPage product={data.product} comments = {data.comments} user={data.user}/>
+        <ProductPage product={data.product} comments={data.comments} user={data.user} />
     )
 }
 
-export default TeaDetail
+export default ProductDetail

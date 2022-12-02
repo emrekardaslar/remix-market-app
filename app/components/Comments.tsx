@@ -102,7 +102,7 @@ const CommentList = ({ comments, user, setComments }: { comments: CommentItem[],
                 itemLayout="horizontal"
                 renderItem={props =>
                     <>
-                        <Comment {...props} actions={props.author == user.username ? actions : []} />
+                        <Comment {...props} actions={props.author == user?.username ? actions : []} />
                     </>}
             />
             <Pagination defaultCurrent={1} total={comments.length} defaultPageSize={5} onChange={handlePagination} />
@@ -131,7 +131,7 @@ const Editor = ({ onChange, onSubmit, submitting, value, user }: EditorProps) =>
 );
 
 
-function Comments({ data, user }) {
+function Comments({ data, user }: any) {
     const [comments, setComments] = useState<CommentItem[]>([]);
     const [submitting, setSubmitting] = useState(false);
     const [value, setValue] = useState('');
@@ -150,7 +150,7 @@ function Comments({ data, user }) {
             setValue('');
             setComments([
                 {
-                    author: user.username,
+                    author: user?.username,
                     avatar: 'https://joeschmoe.io/api/v1/random',
                     content: <p>{value}</p>,
                     datetime: moment('2016-11-22').fromNow(),

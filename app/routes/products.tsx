@@ -10,6 +10,7 @@ import { Outlet, useLoaderData } from '@remix-run/react';
 import { getHeaderItems } from '~/utils/helper';
 import { getUserId } from '~/services/sesssion.server';
 import { LoaderFunction, redirect } from '@remix-run/node';
+import { Footer } from 'antd/lib/layout/layout';
 
 export let loader: LoaderFunction = async ({ request }) => {
     let userId = await getUserId(request);
@@ -50,6 +51,7 @@ function Products() {
                    <Outlet/>
                 </Layout>
             </Layout>
+            <Footer style={{ textAlign: 'center' }}>Market App ©2022 Created by emrekardaslar</Footer>
         </Layout>
     )
 }

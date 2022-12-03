@@ -111,6 +111,54 @@ async function seed() {
     imgList: ["https://m.media-amazon.com/images/I/61h-RNC6V-L.jpg"]
   }
 })
+
+const macbookAir = await db.product.create({
+  data: {
+    name: "Macbook Air M1 8 GB 256 GB SSD 13.3 MGN63TU/A",
+    price: 1153.93,
+    imgLink: "https://cdn.dsmcdn.com/ty454/product/media/images/20220614/15/125590297/117920493/1/1_org_zoom.jpg",
+    category: "Electronics",
+    subCategory: "Computers",
+    description: `
+    About this item
+    All-Day Battery Life – Go longer than ever with up to 18 hours of battery life.
+    Powerful Performance – Take on everything from professional-quality editing to action-packed gaming with ease. The Apple M1 chip with an 8-core CPU delivers up to 3.5x faster performance than the previous generation while using way less power.
+    Superfast Memory – 8GB of unified memory makes your entire system speedy and responsive. That way it can support tasks like memory-hogging multitab browsing and opening a huge graphic file quickly and easily.
+    Stunning Display – With a 13.3” Retina display, images come alive with new levels of realism. Text is sharp and clear, and colors are more vibrant.
+    Why Mac – Easy to learn. Easy to set up. Astoundingly powerful. Intuitive. Packed with apps to use right out of the box. Mac is designed to let you work, play, and create like never before.
+    Simply Compatible – All your existing apps work, including Adobe Creative Cloud, Microsoft 365, and Google Drive. Plus you can use your favorite iPhone and iPad apps directly on macOS. Altogether you’ll have access to the biggest collection of apps ever for Mac. All available on the App Store.
+    Easy to Learn – If you already have an iPhone, MacBook Air feels familiar from the moment you turn it on. And it works perfectly with all your Apple devices. Use your iPad to extend the workspace of your Mac, answer texts and phone calls directly on your Mac, and more.
+    Fanless Design – Your MacBook Air stays cool and runs quietly even while tackling intense workloads.
+    AppleCare – Every Mac comes with a one-year limited warranty and up to 90 days of complimentary technical support. Get AppleCare+ to extend your coverage and reduce the stress and cost of unexpected repairs.
+    Environmentally Friendly – MacBook Air is made with a 100% recycled aluminum enclosure and uses less energy for a smaller carbon footprint.
+    `,
+    imgList: ["https://cdn.dsmcdn.com/ty454/product/media/images/20220614/15/125590297/117920493/2/2_org_zoom.jpg", "https://cdn.dsmcdn.com/ty455/product/media/images/20220614/15/125590297/117920493/3/3_org_zoom.jpg", "https://cdn.dsmcdn.com/ty454/product/media/images/20220614/15/125590297/117920493/4/4_org_zoom.jpg"]
+  }
+})
+
+const macbookPro = await db.product.create({
+  data: {
+    name: "2021 Apple MacBook Pro (16-inch, Apple M1 Pro chip with 10‑core CPU and 16‑core GPU, 16GB RAM, 1TB SSD) - Space Gray",
+    price: 2546.50,
+    imgLink: "https://m.media-amazon.com/images/I/61aUBxqc5PL.__AC_SY445_SX342_QL70_FMwebp_.jpg",
+    category: "Electronics",
+    subCategory: "Computers",
+    description: `
+    About this item
+    Apple M1 Pro or M1 Max chip for a massive leap in CPU, GPU, and machine learning performance
+    Up to 10-core CPU delivers up to 2x faster performance to fly through pro workflows quicker than ever
+    Up to 32-core GPU with up to 4x faster performance for graphics-intensive apps and games
+    16-core Neural Engine for up to 5x faster machine learning performance
+    Longer battery life, up to 21 hours
+    Up to 64GB of unified memory so everything you do is fast and fluid
+    Up to 8TB of superfast SSD storage launches apps and opens files in an instant
+    Stunning 16-inch Liquid Retina XDR display with extreme dynamic range and contrast ratio
+    1080p FaceTime HD camera with advanced image signal processor for sharper video calls
+    Six-speaker sound system with force-cancelling woofers
+    `,
+    imgList: ["https://m.media-amazon.com/images/I/71ooAuqn7sL._AC_SX522_.jpg", "https://m.media-amazon.com/images/I/61JqllsE+DL._AC_SX522_.jpg", "https://m.media-amazon.com/images/I/81CowZF4cxL._AC_SX522_.jpg", "https://m.media-amazon.com/images/I/818mB1ifjfL._AC_SX522_.jpg", "https://m.media-amazon.com/images/I/61R8bADaJOL._AC_SX522_.jpg"]
+  }
+})
   
 }
 

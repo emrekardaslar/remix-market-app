@@ -4,30 +4,38 @@ import { Outlet, useLoaderData, useNavigate } from "@remix-run/react"
 import { Hpl } from "emrekardaslar-uikit"
 import { db } from "~/utils/db.server"
 
-export let loader: LoaderFunction = async ({ request }) => {
-  let drink = await db.product.findMany(
-    {
-      where: {
-        category: 'drink'
-      }
-    }
-  );
+export let loader: LoaderFunction = async () => {
+  let products = await db.product.findMany({});
 
-  let food = await db.product.findMany(
-    {
-      where: {
-        category: 'food'
-      },
-    }
-  );
+  let categoryNames = await db.product.groupBy({
+    by:["category"],
+  });
 
+  let names: any = [];
+  categoryNames.forEach(name => names.push(name.category))
 
-  return { drink, food }
+  return { products, names }
 }
 
 function Products() {
+
+  const getObject = (products: any, names: any) => {
+    let res: any = {};
+
+    names.forEach((name: string) => {
+      res[name] = []
+      products.forEach((product: any) => {
+        product.category == name && res[name].push(product)
+      })
+    })
+
+    return res;
+  }
+
   const data = useLoaderData();
-  const keys = Object.keys(data);
+  const products = data.products;
+  const keys = data.names;
+  let productsObject = getObject(products, keys);
   const navigate = useNavigate();
 
   const clickHandler = (product: Product) => {
@@ -36,11 +44,11 @@ function Products() {
 
   return (
     <>
-      {keys.map(key =>
+      {keys.map((key: string) =>
       (
         <>
           <h1 style={{ fontWeight: "bold", textTransform: "capitalize", marginLeft: "0.3rem" }}>{key}</h1>
-          <Hpl products={data[key]} onClick={clickHandler} button={true} />
+          <Hpl products={productsObject[key]} onClick={clickHandler} button={true} />
         </>
       )
       )}

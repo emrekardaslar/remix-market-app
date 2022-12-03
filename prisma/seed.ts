@@ -116,7 +116,7 @@ const macbookAir = await db.product.create({
   data: {
     name: "Macbook Air M1 8 GB 256 GB SSD 13.3 MGN63TU/A",
     price: 1153.93,
-    imgLink: "https://cdn.dsmcdn.com/ty454/product/media/images/20220614/15/125590297/117920493/1/1_org_zoom.jpg",
+    imgLink: "https://reimg-teknosa-cloud-prod.mncdn.com/mnresize/600/600/productimage/125036119/125036119_0_MC/48344531.jpg",
     category: "Electronics",
     subCategory: "Computers",
     description: `
@@ -132,7 +132,7 @@ const macbookAir = await db.product.create({
     AppleCare – Every Mac comes with a one-year limited warranty and up to 90 days of complimentary technical support. Get AppleCare+ to extend your coverage and reduce the stress and cost of unexpected repairs.
     Environmentally Friendly – MacBook Air is made with a 100% recycled aluminum enclosure and uses less energy for a smaller carbon footprint.
     `,
-    imgList: ["https://cdn.dsmcdn.com/ty454/product/media/images/20220614/15/125590297/117920493/2/2_org_zoom.jpg", "https://cdn.dsmcdn.com/ty455/product/media/images/20220614/15/125590297/117920493/3/3_org_zoom.jpg", "https://cdn.dsmcdn.com/ty454/product/media/images/20220614/15/125590297/117920493/4/4_org_zoom.jpg"]
+    imgList: ["https://reimg-teknosa-cloud-prod.mncdn.com/mnresize/600/600/productimage/125036119/125036119_1_MC/48412556.jpg", "https://reimg-teknosa-cloud-prod.mncdn.com/mnresize/600/600/productimage/125036119/125036119_2_MC/48412557.jpg", "https://reimg-teknosa-cloud-prod.mncdn.com/mnresize/600/600/productimage/125036119/125036119_3_MC/48344534.jpg", "https://reimg-teknosa-cloud-prod.mncdn.com/mnresize/600/600/productimage/125036119/125036119_4_MC/48344535.jpg", "https://reimg-teknosa-cloud-prod.mncdn.com/mnresize/600/600/productimage/125036119/125036119_5_MC/48412538.jpg"]
   }
 })
 
@@ -140,7 +140,7 @@ const macbookPro = await db.product.create({
   data: {
     name: "2021 Apple MacBook Pro (16-inch, Apple M1 Pro chip with 10‑core CPU and 16‑core GPU, 16GB RAM, 1TB SSD) - Space Gray",
     price: 2546.50,
-    imgLink: "https://m.media-amazon.com/images/I/61aUBxqc5PL.__AC_SY445_SX342_QL70_FMwebp_.jpg",
+    imgLink: "https://reimg-teknosa-cloud-prod.mncdn.com/mnresize/600/600/productimage/125034259/125034259_0_MC/57261934.jpg",
     category: "Electronics",
     subCategory: "Computers",
     description: `
@@ -156,7 +156,7 @@ const macbookPro = await db.product.create({
     1080p FaceTime HD camera with advanced image signal processor for sharper video calls
     Six-speaker sound system with force-cancelling woofers
     `,
-    imgList: ["https://m.media-amazon.com/images/I/71ooAuqn7sL._AC_SX522_.jpg", "https://m.media-amazon.com/images/I/61JqllsE+DL._AC_SX522_.jpg", "https://m.media-amazon.com/images/I/81CowZF4cxL._AC_SX522_.jpg", "https://m.media-amazon.com/images/I/818mB1ifjfL._AC_SX522_.jpg", "https://m.media-amazon.com/images/I/61R8bADaJOL._AC_SX522_.jpg"]
+    imgList: ["https://reimg-teknosa-cloud-prod.mncdn.com/mnresize/600/600/productimage/125034259/125034259_1_MC/57262048.jpg", "https://reimg-teknosa-cloud-prod.mncdn.com/mnresize/600/600/productimage/125034259/125034259_2_MC/57261999.jpg", "https://reimg-teknosa-cloud-prod.mncdn.com/mnresize/600/600/productimage/125034259/125034259_3_MC/57262328.jpg", "https://reimg-teknosa-cloud-prod.mncdn.com/mnresize/600/600/productimage/125034259/125034259_4_MC/57262354.jpg", "https://reimg-teknosa-cloud-prod.mncdn.com/mnresize/600/600/productimage/125034259/125034259_7_MC/57262440.jpg"]
   }
 })
   

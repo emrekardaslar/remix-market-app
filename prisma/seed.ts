@@ -237,7 +237,7 @@ const macbookPro = await db.product.create({
       Play thousands of games from 4 generations of Xbox with Backward compatibility, including optimized titles at launch.
       Download and play over 100 high-quality games, including all new Xbox Game Studios titles like Halo Infinite the day they release, with Xbox Game Pass ultimate (membership sold separately).
       Xbox Smart delivery ensures you play the best available version of your game no matter which Console you're playing on. `,
-      imgList: ["https://ultimateconnection.co.za/wp-content/uploads/2021/11/XBOX-SERIES-X-1TB-1.png", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSr3-ukwhlUrdRBHX6rB9tKEmTZ6uMz7YwDGw&usqp=CAU"]
+      imgList: ["https://ultimateconnection.co.za/wp-content/uploads/2021/11/XBOX-SERIES-X-1TB-1.png"]
     }
   }) 
 

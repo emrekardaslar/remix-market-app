@@ -4,30 +4,51 @@ import { NotificationOutlined } from '@ant-design/icons';
 import HeaderC from '~/components/Header'
 import Sidebar from '~/components/Sidebar'
 import headerItems from "../mock/headerItems"
-import { sidebarMenu } from "../mock/sidebarItems"
+import { SidebarItem, SidebarMenu } from "../models/sidebarMenu"
 import { Layout } from 'antd';
 import { Outlet, useLoaderData } from '@remix-run/react';
-import { getHeaderItems } from '~/utils/helper';
+import { capitalizeFirstLetter, getHeaderItems } from '~/utils/helper';
 import { getUserId } from '~/services/sesssion.server';
 import { LoaderFunction, redirect } from '@remix-run/node';
 import { Footer } from 'antd/lib/layout/layout';
+import { db } from '~/utils/db.server';
 
 export let loader: LoaderFunction = async ({ request }) => {
     let userId = await getUserId(request);
-    return {user: userId};
+    let cNameQuery = await db.product.groupBy({
+        by:["category"],
+    });
+    let categoryObject: SidebarMenu = {items:[]}
+    let categoryNames: any = [];
+    cNameQuery.forEach(name => {
+        categoryNames.push(name.category); 
+        categoryObject.items.push({name: name.category, subItems: []})
+    })
+
+    let products = await db.product.findMany({});
+
+    products.forEach(product => {
+        categoryObject.items.forEach((item: any) => {
+            item.name == product.category && 
+            item.subItems.findIndex((a: any) => a.name == product.subCategory) == -1 &&
+            item.subItems.push({name: product.subCategory, subItems: []})
+        })
+    })
+
+    return {user: userId, categoryNames, categoryObject};
 };
 
-function getSidebarItems(): ItemType[] {
-    const sidebar = sidebarMenu;
+function getSidebarItems(categoryObject: any): any[] {
+    const sidebar = categoryObject;
     return sidebar.items.map((item => {
         return {
             key: item.name,
             icon: React.createElement(NotificationOutlined),
-            label: item.name,
+            label: capitalizeFirstLetter(item.name),
             children: item.subItems.map(subItem => {
                 return {
                     key: subItem.name.replace(/\s+/g, '-').toLowerCase(),
-                    label: subItem.name
+                    label: capitalizeFirstLetter(subItem.name)
                 }
             })
         }
@@ -42,7 +63,7 @@ function Products() {
             <HeaderC items={items} selectedKey="Products" />
 
             <Layout>
-                <Sidebar items={getSidebarItems()} />
+                <Sidebar items={getSidebarItems(data.categoryObject)} />
                 <Layout
                     style={{
                         padding: '0 24px 24px',

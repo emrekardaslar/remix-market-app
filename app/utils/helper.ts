@@ -28,3 +28,6 @@ export const getTotalPrice = (items: any) => {
     })
     return totalPrice.toFixed(2)
 }
+export function capitalizeFirstLetter(string: string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}

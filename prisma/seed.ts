@@ -159,7 +159,106 @@ const macbookPro = await db.product.create({
     imgList: ["https://reimg-teknosa-cloud-prod.mncdn.com/mnresize/600/600/productimage/125034259/125034259_1_MC/57262048.jpg", "https://reimg-teknosa-cloud-prod.mncdn.com/mnresize/600/600/productimage/125034259/125034259_2_MC/57261999.jpg", "https://reimg-teknosa-cloud-prod.mncdn.com/mnresize/600/600/productimage/125034259/125034259_3_MC/57262328.jpg", "https://reimg-teknosa-cloud-prod.mncdn.com/mnresize/600/600/productimage/125034259/125034259_4_MC/57262354.jpg", "https://reimg-teknosa-cloud-prod.mncdn.com/mnresize/600/600/productimage/125034259/125034259_7_MC/57262440.jpg"]
   }
 })
-  
+
+  const fanta = await db.product.create({
+    data: {
+      name: "Fanta 0.5L",
+      price: 6.25,
+      imgLink: "https://positano.lv/wp-content/uploads/2021/11/fanta-0.5-new.png",
+      category: "drink",
+      subCategory: "fanta",
+      description: `Fanta is an American-owned German brand of fruit-flavored carbonated soft drinks created by Coca-Cola Deutschland under the leadership of German businessman Max Keith. There are more than 200 flavors worldwide. Fanta originated in Germany as a Coca-Cola alternative in 1940 due to the American trade embargo of Nazi Germany, which affected the availability of Coca-Cola ingredients. Fanta soon dominated the German market with three million cans sold in 1943. The current formulation of Fanta was developed in Italy in 1955.`,
+      imgList: [""]
+    }
+  })
+
+  const miFryer = await db.product.create({
+    data: {
+      name: "Xiaomi Mi Smart Air Fryer 3,5 L",
+      price: 157.68,
+      imgLink: "https://reimg-teknosa-cloud-prod.mncdn.com/mnresize/600/600/productimage/120412509/120412509_0_MC/56452563.png",
+      category: "electronics",
+      subCategory: "kitchen",
+      description: `About this item
+      Healthier cooking with 360° heated air circulation, providing delicious food with less grease and fat
+      1500W heating pipe for quick and rapid cooking
+      100+ in-app recipes, just select and the air fryer will automatically select the temperature and time for you
+      Adjustable temperature between 40℃ to 200℃. Aside from frying, you can also dry fruit and meat, ferment yogurt, defrost, and bake
+      24h scheduled cooking so you can prepare your food in advance and get your cooking done even when you are busy OLED screen with interactive button, easy to control 3.5 Litre with grill rack to maximise your kitchen space Wear resistant and non-stick coating to make the air fryer both durable and easy to clean`,
+      imgList: ["https://www.birnumara.com/image/cache/data/resimler/xiaomi-mi-smart-air-fryer-3-5-lt-yagsiz-fritoz-49993-600x600.png", "https://reimg-carrefour.mncdn.com/mnresize/600/600/productimage/30385166/30385166_2_MC/8840401911858_1648538424305.jpg"]
+    }
+  }) 
+
+  const ps5 = await db.product.create({
+    data: {
+      name: "Playstation 5 ",
+      price: 500.00,
+      imgLink: "https://cdn.shopify.com/s/files/1/0397/7982/7863/products/PS5K6_600x.jpg?v=1624623949",
+      category: "electronics",
+      subCategory: "gaming",
+      description: `About this item
+      Next wave of invites will be sent on 12/2/2022 to qualifying customers. While supplies last
+      Model Number CFI-1215A01X
+      Stunning Games - Marvel at incredible graphics and experience new PS5 features.
+      Breathtaking Immersion - Discover a deeper gaming experience with support for haptic feedback, adaptive triggers, and 3D Audio technology.
+      Lightning Speed - Harness the power of a custom CPU, GPU, and SSD with Integrated I/O that rewrite the rules of what a PlayStation console can do.`,
+      imgList: ["https://www.birnumara.com/image/cache/data/resimler/sony-playstation-5-oyun-konsolu-32402-600x600.jpg", "https://buynow.com.mt/image/cache/catalog/ps5dual-600x600.jpeg"]
+    }
+  }) 
+
+  const xboxSeriesS = await db.product.create({
+    data: {
+      name: "Xbox Series S",
+      price: 400.00,
+      imgLink: "https://reimg-teknosa-cloud-prod.mncdn.com/mnresize/600/600/productimage/125088429/125088429_1_MC/48352428.jpg",
+      category: "electronics",
+      subCategory: "gaming",
+      description: `About this item
+      Go all digital with Xbox Series S and experience next-gen speed and performance at a great price.
+      Bundle includes: Xbox Series S console, one Xbox Wireless Controller, a high-speed HDMI cable, power cable, and 2 AA batteries.
+      Make the most of every gaming minute with Quick Resume, lightning-fast load times, and gameplay of up to 120 FPS—all powered by Xbox Velocity Architecture.*
+      Enjoy digital games from four generations of Xbox, with hundreds of optimized titles that look and play better than ever.
+      Add Xbox Game Pass Ultimate (membership sold separately) to play new games day one. Enjoy hundreds of high-quality games with friends on console, PC, and cloud. Plus, now you can skip the install and jump in with cloud gaming.* `,
+      imgList: ["https://reimg-teknosa-cloud-prod.mncdn.com/mnresize/600/600/productimage/125088429/125088429_2_MC/48352427.jpg", "https://www.eros.ae/media/catalog/product/cache/4d25cc2d7db4bdfe410479ebb1f61f20/m/i/microsoft-xbox-series-s-console-white-2.jpg"]
+    }
+  }) 
+
+  const xboxSeriesX = await db.product.create({
+    data: {
+      name: "Xbox Series X",
+      price: 500.00,
+      imgLink: "https://reimg-teknosa-cloud-prod.mncdn.com/mnresize/600/600/productimage/125088428/125088428_0_MC/48351660.jpg",
+      category: "electronics",
+      subCategory: "gaming",
+      description: `About this item
+      Next wave of invites will be sent on 12/02/2022 to qualifying customers. While supplies last.
+      Introducing Xbox Series X, the fastest, most powerful Xbox ever. Play thousands of titles from four generations of consoles-all games look and play best on Xbox Series X.
+      Experience next-gen speed and performance with the Xbox velocity architecture, powered by a custom SSD and integrated software.
+      Play thousands of games from 4 generations of Xbox with Backward compatibility, including optimized titles at launch.
+      Download and play over 100 high-quality games, including all new Xbox Game Studios titles like Halo Infinite the day they release, with Xbox Game Pass ultimate (membership sold separately).
+      Xbox Smart delivery ensures you play the best available version of your game no matter which Console you're playing on. `,
+      imgList: ["https://ultimateconnection.co.za/wp-content/uploads/2021/11/XBOX-SERIES-X-1TB-1.png", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSr3-ukwhlUrdRBHX6rB9tKEmTZ6uMz7YwDGw&usqp=CAU"]
+    }
+  }) 
+
+  const galaxyS22Ultra = await db.product.create({
+    data: {
+      name: "Galaxy S22 Ultra",
+      price: 1000.00,
+      imgLink: "https://reimg-teknosa-cloud-prod.mncdn.com/mnresize/600/600/productimage/125078448/125078448_0_MC/62184198.jpg",
+      category: "electronics",
+      subCategory: "phone",
+      description: `About this item
+      8K SUPER STEADY VIDEO: Shoot videos that rival how epic your life is with stunning 8K recording, the highest recording resolution available on a smartphone; Video captured is effortlessly smooth, thanks to Auto Focus Video Stabilization on Galaxy S22 Ultra.Form_factor : Smartphone
+      NIGHTOGRAPHY plus PORTAIT MODE: Capture the night with crystal clear, bright pics and videos, no matter the lighting with Night Mode; Portrait Mode auto-detects and adjusts to what you want front and center, making all your photos worthy of a frame
+      108MP PHOTO RESOLUTION plus BRIGHT DISPLAY: Capture premium detail with 108MP resolution— the highest available on a cell phone; Your favorite content will look even more epic on our brightest display ever with Vision Booster
+      ADAPTIVE COLOR CONTRAST: Streaming on the go, working from your patio or binge-watching late into the night. The Galaxy S22 Ultra adaptive screen automatically optimizes color and brightness, outdoors and indoors
+      LONG LASTING BATTERY plus FAST CHARGING: Power every scroll, click, tap and stream all day long and then some with an intelligent, long-lasting battery; Dive back into action at a moment’s notice with 45W Super-Fast Charging
+      EMBEDDED S PEN: New phone, new S Pen; Now you can unleash your creativity on Galaxy S22 Ultra with an embedded S Pen; Edit photos and videos with pinpoint accuracy, and do it all with that pen-to-paper feel
+      PREMIUM DESIGN & CRAFTMANSHIP: With a classy, eye-catching glass-metal-glass design, we’re setting a standard for smart phones; With our strongest aluminum frame and the latest Gorilla Glass, this phone is lightweight and durable to help endure scratches and dings`,
+      imgList: ["https://reimg-teknosa-cloud-prod.mncdn.com/mnresize/600/600/productimage/125078456/125078456_0_MC/60699488.jpg", "https://reimg-teknosa-cloud-prod.mncdn.com/mnresize/600/600/productimage/125078450/125078450_0_MC/60699520.jpg"]
+    }
+  }) 
 }
 
 seed();

@@ -117,8 +117,8 @@ const macbookAir = await db.product.create({
     name: "Macbook Air M1 8 GB 256 GB SSD 13.3 MGN63TU/A",
     price: 1153.93,
     imgLink: "https://reimg-teknosa-cloud-prod.mncdn.com/mnresize/600/600/productimage/125036119/125036119_0_MC/48344531.jpg",
-    category: "Electronics",
-    subCategory: "Computers",
+    category: "electronics",
+    subCategory: "computers",
     description: `
     About this item
     All-Day Battery Life – Go longer than ever with up to 18 hours of battery life.
@@ -141,8 +141,8 @@ const macbookPro = await db.product.create({
     name: "2021 Apple MacBook Pro (16-inch, Apple M1 Pro chip with 10‑core CPU and 16‑core GPU, 16GB RAM, 1TB SSD) - Space Gray",
     price: 2546.50,
     imgLink: "https://reimg-teknosa-cloud-prod.mncdn.com/mnresize/600/600/productimage/125034259/125034259_0_MC/57261934.jpg",
-    category: "Electronics",
-    subCategory: "Computers",
+    category: "electronics",
+    subCategory: "computers",
     description: `
     About this item
     Apple M1 Pro or M1 Max chip for a massive leap in CPU, GPU, and machine learning performance

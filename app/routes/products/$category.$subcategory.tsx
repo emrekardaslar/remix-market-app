@@ -2,6 +2,7 @@ import { json, LoaderFunction, MetaFunction } from '@remix-run/node'
 import { Outlet, useLoaderData } from '@remix-run/react'
 import CategoryPage from '~/components/CategoryPage'
 import { db } from '~/utils/db.server'
+import { capitalizeFirstLetter } from '~/utils/helper'
 
 
 export const loader: LoaderFunction = async ({ request, params }) => {
@@ -16,11 +17,15 @@ export const loader: LoaderFunction = async ({ request, params }) => {
     )
 }
 
-export const meta: MetaFunction = () => ({
-    charset: "utf-8",
-    title: "Category",
-    viewport: "width=device-width,initial-scale=1",
-  });
+export const meta: MetaFunction<typeof loader> = ({
+    params,
+  }) => {
+    const { subcategory } = params;
+    return {
+      title:capitalizeFirstLetter(`${subcategory}`),
+      description: subcategory,
+    };
+  };
 
 function Subcategory() {
     const data = useLoaderData();

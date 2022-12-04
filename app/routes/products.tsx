@@ -9,7 +9,7 @@ import { Layout } from 'antd';
 import { Outlet, useLoaderData } from '@remix-run/react';
 import { capitalizeFirstLetter, getHeaderItems } from '~/utils/helper';
 import { getUserId } from '~/services/sesssion.server';
-import { LoaderFunction, redirect } from '@remix-run/node';
+import { LoaderFunction, MetaFunction, redirect } from '@remix-run/node';
 import { Footer } from 'antd/lib/layout/layout';
 import { db } from '~/utils/db.server';
 
@@ -37,6 +37,13 @@ export let loader: LoaderFunction = async ({ request }) => {
 
     return {user: userId, categoryNames, categoryObject};
 };
+
+export const meta: MetaFunction<typeof loader> = () => {
+    return {
+      title: "Products",
+      description: "Products in the Market App"
+    };
+  };
 
 function getSidebarItems(categoryObject: any): any[] {
     const sidebar = categoryObject;

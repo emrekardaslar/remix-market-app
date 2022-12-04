@@ -1,4 +1,4 @@
-import { LoaderFunction, redirect, ActionFunction } from "@remix-run/node";
+import { LoaderFunction, redirect, ActionFunction, MetaFunction } from "@remix-run/node";
 import { useLoaderData, Outlet, Form, useActionData } from "@remix-run/react";
 import { Button, Card } from "antd";
 import { useEffect, useState } from "react";
@@ -14,6 +14,13 @@ export let loader: LoaderFunction = async ({ request }) => {
     let userId = await getUserId(request);
     if (!userId) throw redirect('/login')
     return { user: userId };
+};
+
+export const meta: MetaFunction<typeof loader> = () => {
+    return {
+      title: "Cart",
+      description: "Your cart"
+    };
 };
 
 export const action: ActionFunction = async ({ request }) => {

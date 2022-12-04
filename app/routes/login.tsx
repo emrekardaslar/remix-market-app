@@ -1,4 +1,4 @@
-import { ActionFunction, LoaderFunction, json } from "@remix-run/node";
+import { ActionFunction, LoaderFunction, json, MetaFunction } from "@remix-run/node";
 import { Form, Outlet, useActionData, useLoaderData } from "@remix-run/react"
 import HeaderC from "~/components/Header"
 import authenticator from "~/services/auth.service";
@@ -50,6 +50,13 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   const error = session.get("sessionErrorKey");
   return json<any>({ error });
+};
+
+export const meta: MetaFunction<typeof loader> = () => {
+  return {
+    title: "Login",
+    description: "Login to your account"
+  };
 };
 
 function Login() {

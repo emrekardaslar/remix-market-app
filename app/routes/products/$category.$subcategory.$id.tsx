@@ -1,9 +1,10 @@
-import { ActionFunction, LoaderFunction } from '@remix-run/node';
+import { ActionFunction, LoaderFunction, MetaFunction } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
 import moment from 'moment';
 import ProductPage from '~/components/ProductPage';
 import { getUserId } from '~/services/sesssion.server';
 import { db } from '~/utils/db.server';
+import { capitalizeFirstLetter } from '~/utils/helper';
 
 export const loader: LoaderFunction = async ({ request, params }) => {
     const product = await db.product.findFirst({
@@ -61,6 +62,16 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 
     return { product: product, comments: comments, user: user, rating: rating }
 };
+
+export const meta: MetaFunction<typeof loader> = ({
+    data,
+  }) => {
+    const { product } = data;
+    return {
+      title:capitalizeFirstLetter(product.name),
+      description: product.description,
+    };
+  };
 
 export const action: ActionFunction = async ({ request, params }): Promise<any> => {
     const formData = await request.formData();

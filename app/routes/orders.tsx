@@ -1,4 +1,4 @@
-import { ActionFunction, LoaderFunction, redirect } from '@remix-run/node';
+import { ActionFunction, LoaderFunction, MetaFunction, redirect } from '@remix-run/node';
 import { Outlet, useLoaderData } from '@remix-run/react'
 import HeaderC from '~/components/Header'
 import authenticator from '~/services/auth.service';
@@ -14,6 +14,13 @@ export let loader: LoaderFunction = async ({ request }) => {
 
 export const action: ActionFunction = async ({ request }) => {
   await authenticator.logout(request, { redirectTo: "/login" });
+};
+
+export const meta: MetaFunction<typeof loader> = () => {
+  return {
+    title: "Order",
+    description: "Your orders"
+  };
 };
 
 function Orders() {

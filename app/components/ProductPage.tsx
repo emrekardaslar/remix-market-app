@@ -95,7 +95,9 @@ function ProductPage({ product, comments, user }: ProductPageProps) {
                 } imageLinks={[
                     product.imgLink,
                     ...product.imgList
-                ]} />
+                ]} 
+                imageAlt = {product.name}
+                />
             </>
         </PageContent>
     )

@@ -1,5 +1,6 @@
+import { HeartOutlined } from "@ant-design/icons";
 import { useFetcher, useLoaderData, useNavigate } from "@remix-run/react";
-import { Row, Card, Button, Col, Rate, notification, Badge } from "antd"
+import { Row, Card, Button, Col, Rate, notification, Badge, Space } from "antd"
 import Meta from "antd/lib/card/Meta"
 import { ProductImages } from "emrekardaslar-uikit";
 import { useEffect, useState } from "react";
@@ -10,10 +11,11 @@ import PageContent from "./UI/PageContent"
 interface ProductPageProps {
     product: any,
     comments: any,
-    user: any
+    user: any,
+    favoriteList: any
 }
 
-function ProductPage({ product, comments, user }: ProductPageProps) {
+function ProductPage({ product, comments, user, favoriteList }: ProductPageProps) {
     const {
         increaseCartQuantity,
         getItemQuantity
@@ -76,6 +78,13 @@ function ProductPage({ product, comments, user }: ProductPageProps) {
         setItemQuantity(itemQuantity + 1)
     };
 
+    const addToFavorite = (product: any, user: any) => {
+        fetcher.submit(
+            {addToFavorite: JSON.stringify({productId: product.id, userId: user.id})},
+            {method: 'post'}
+        )
+    }
+
     return (
         <PageContent>
             <>
@@ -89,8 +98,8 @@ function ProductPage({ product, comments, user }: ProductPageProps) {
                         <Badge count={itemQuantity} status={"success"} showZero>
                             <Button type='primary' onClick={() => { increaseCartQuantity(product.id, product.name, product.price); cartAddedNotification(product.name, product.price); }}>Add to Cart</Button>
                         </Badge>
+                        <Button style={{marginLeft: "1rem"}} type={favoriteList.length == 0 ? "default" : "primary"} shape="circle" icon={<HeartOutlined />} danger onClick={()=>{addToFavorite(product, user)}}></Button>
                         <Comments data={comments} user={user} />
-
                     </>
                 } imageLinks={[
                     product.imgLink,

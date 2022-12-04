@@ -60,7 +60,14 @@ export const loader: LoaderFunction = async ({ request, params }) => {
         }
     })
 
-    return { product: product, comments: comments, user: user, rating: rating }
+    const favoriteList = await db.favoriteList.findMany({
+        where: {
+            productId: product?.id,
+            userId: user?.id
+        }
+    })
+
+    return { product: product, comments: comments, user: user, rating: rating, favoriteList: favoriteList }
 };
 
 export const meta: MetaFunction<typeof loader> = ({
@@ -78,7 +85,7 @@ export const action: ActionFunction = async ({ request, params }): Promise<any> 
     const response = JSON.parse(formData.get("data"))
     const edit = JSON.parse(formData.get("commentToEdit"))
     const rating = JSON.parse(formData.get("rating"))
-
+    const addToFavorite =JSON.parse(formData.get("addToFavorite"))
     if (request.method == 'DELETE') {
         //delete comment
         const idToDelete = formData.get('commentToDelete')
@@ -139,6 +146,32 @@ export const action: ActionFunction = async ({ request, params }): Promise<any> 
                 }
             })
         }
+        else if (formData && addToFavorite) {
+            const favorited = await db.favoriteList.findFirst({
+                where: {
+                    productId: addToFavorite.productId,
+                    userId: addToFavorite.userId
+                }
+            })
+            if (!favorited) {
+                await db.favoriteList.create({
+                    data: {
+                        productId: addToFavorite.productId,
+                        userId: addToFavorite.userId
+                    }
+                })
+            }
+            else {
+                await db.favoriteList.delete({
+                    where: {
+                        userId_productId: {
+                            productId: addToFavorite.productId,
+                            userId: addToFavorite.userId
+                        }
+                    }
+                })
+            }
+        }
         else {
             await db.comment.create({
                 data: {
@@ -156,7 +189,7 @@ export const action: ActionFunction = async ({ request, params }): Promise<any> 
 function ProductDetail() {
     const data = useLoaderData()
     return (
-        <ProductPage product={data.product} comments={data.comments} user={data.user} />
+        <ProductPage product={data.product} comments={data.comments} user={data.user} favoriteList={data.favoriteList}/>
     )
 }
 

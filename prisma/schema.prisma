@@ -19,6 +19,7 @@ model User {
   orders       Order[]
   comments Comment[]
   ratings Rating[]
+  favoriteProducts FavoriteList[]
 }
 
 model Order {
@@ -52,6 +53,18 @@ model Product {
   comments Comment[]
   orderItem OrderItem[]
   ratings Rating[]
+  favoritedBy FavoriteList[]
+}
+
+model FavoriteList {
+  user  User @relation(fields: [userId], references: [id])
+  userId String
+  product Product @relation(fields: [productId], references: [id])
+  productId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@id([userId, productId])
 }
 
 model Rating {

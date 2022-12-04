@@ -10,6 +10,7 @@
     "seed": "ts-node prisma/seed.ts"
   },
   "dependencies": {
+    "@ant-design/icons": "^4.8.0",
     "@prisma/client": "^4.4.0",
     "@remix-run/node": "^1.7.2",
     "@remix-run/react": "^1.7.2",

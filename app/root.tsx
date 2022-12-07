@@ -7,6 +7,7 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import { Footer } from "antd/lib/layout/layout";
 import { CartProvider } from "./context/CartContext";
 
 export const meta: MetaFunction = () => ({
@@ -34,6 +35,7 @@ export default function App() {
       <body>
         <CartProvider>
           <Outlet />
+          <Footer style={{ textAlign: 'center', position: "fixed", bottom: "0px", width: "100%" }}>Market App ©2022 Created by emrekardaslar</Footer>
           <ScrollRestoration />
           <Scripts />
           <LiveReload />

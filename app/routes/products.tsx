@@ -79,7 +79,6 @@ function Products() {
                    <Outlet/>
                 </Layout>
             </Layout>
-            <Footer style={{ textAlign: 'center' }}>Market App ©2022 Created by emrekardaslar</Footer>
         </Layout>
     )
 }

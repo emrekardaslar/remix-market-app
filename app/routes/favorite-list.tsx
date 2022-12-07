@@ -3,7 +3,6 @@ import { LoaderFunction, ActionFunction, redirect, MetaFunction } from "@remix-r
 import { Outlet, useFetcher, useLoaderData, useNavigate } from "@remix-run/react"
 import { Row, Col, Card, Button, notification } from "antd";
 import HeaderC from "~/components/Header"
-import authenticator from "~/services/auth.service";
 import { getUserId } from "~/services/sesssion.server";
 import { db } from "~/utils/db.server";
 import { getHeaderItems } from "~/utils/helper";
@@ -108,6 +107,7 @@ function FavoriteList() {
         <>
             <HeaderC items={items} selectedKey='Favorite List' />
             <Outlet />
+            <br></br>
             <Row key={Math.random()} gutter={16}>
                     {data.favoriteList.map((item: any) => (
                         <>

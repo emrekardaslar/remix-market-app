@@ -151,7 +151,7 @@ function Comments({ data, user }: any) {
             setComments([
                 {
                     author: user?.username,
-                    avatar: 'https://joeschmoe.io/api/v1/random',
+                    avatar: 'https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes-thumbnail.png',
                     content: <p>{value}</p>,
                     datetime: moment('2016-11-22').fromNow(),
                 },
@@ -168,7 +168,7 @@ function Comments({ data, user }: any) {
         <>
             {comments.length > 0 && <CommentList comments={comments} user={user} setComments={setComments}/>}
             <Comment
-                avatar={<Avatar src="https://joeschmoe.io/api/v1/random" alt="User avatar" />}
+                avatar={<Avatar src="https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes-thumbnail.png" alt="User avatar" />}
                 content={
                     <Editor
                         onChange={handleChange}

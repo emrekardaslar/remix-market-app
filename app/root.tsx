@@ -35,7 +35,7 @@ export default function App() {
       <body>
         <CartProvider>
           <Outlet />
-          <Footer style={{ textAlign: 'center', position: "fixed", bottom: "0px", width: "100%" }}>Market App ©2022 Created by emrekardaslar</Footer>
+          <Footer style={{ textAlign: 'center', position: "relative", bottom: "0px", width: "100%" }}>Market App ©2022 Created by emrekardaslar</Footer>
           <ScrollRestoration />
           <Scripts />
           <LiveReload />

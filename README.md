@@ -61,6 +61,6 @@ npm install
 * Generate database tables and generate data by running:
 ```
 npm i -g prisma
-prisma db push 
+npx prisma db push 
 npx prisma db seed
 ```

@@ -47,7 +47,6 @@ export const loader: LoaderFunction = async ({ request, params }) => {
         })
     }
 
-    //TODO: find if there is something like select as
     comments.forEach((comment: any) => {
         comment.author = comment.user.username
         comment.avatar = 'https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes-thumbnail.png'

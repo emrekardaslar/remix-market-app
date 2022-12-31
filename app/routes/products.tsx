@@ -1,16 +1,14 @@
-import { ItemType } from 'antd/lib/menu/hooks/useItems'
 import React from 'react'
 import { NotificationOutlined } from '@ant-design/icons';
 import HeaderC from '~/components/Header'
 import Sidebar from '~/components/Sidebar'
 import headerItems from "../mock/headerItems"
-import { SidebarItem, SidebarMenu } from "../models/sidebarMenu"
+import { SidebarMenu } from "../models/sidebarMenu"
 import { Layout } from 'antd';
 import { Outlet, useLoaderData } from '@remix-run/react';
 import { capitalizeFirstLetter, getHeaderItems } from '~/utils/helper';
 import { getUserId } from '~/services/sesssion.server';
-import { LoaderFunction, MetaFunction, redirect } from '@remix-run/node';
-import { Footer } from 'antd/lib/layout/layout';
+import { LoaderFunction, MetaFunction } from '@remix-run/node';
 import { db } from '~/utils/db.server';
 
 export let loader: LoaderFunction = async ({ request }) => {

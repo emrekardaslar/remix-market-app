@@ -1,4 +1,5 @@
-import { ActionFunction, LoaderFunction, MetaFunction } from '@remix-run/node'
+import { FavoriteList } from '@prisma/client'
+import { ActionFunction, LoaderFunction, MetaFunction, redirect } from '@remix-run/node'
 import { Outlet, useLoaderData } from '@remix-run/react'
 import CategoryPage from '~/components/CategoryPage'
 import { getUserId } from '~/services/sesssion.server'
@@ -7,11 +8,14 @@ import { capitalizeFirstLetter } from '~/utils/helper'
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   let userId = await getUserId(request)
-  const favoriteList = await db.favoriteList.findMany({
-    where: {
-      userId: userId,
-    },
-  })
+  let favoriteList: FavoriteList[] = []
+  if (userId) {
+    favoriteList = await db.favoriteList.findMany({
+      where: {
+        userId: userId,
+      },
+    })
+  }
 
   let products = await db.product.findMany({
     where: {
@@ -31,6 +35,8 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 }
 
 export const action: ActionFunction = async ({ request, params }): Promise<any> => {
+  let userId = await getUserId(request)
+  if (!userId) throw redirect('/login')
   const formData = await request.formData()
   const addToFavorite = JSON.parse(formData.get('addToFavorite'))
   if (formData && addToFavorite) {

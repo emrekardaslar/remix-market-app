@@ -2,6 +2,7 @@ import { ActionFunction, LoaderFunction, MetaFunction } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
 import moment from 'moment'
 import ProductPage from '~/components/ProductPage'
+import { Comment, CommentResponse } from '~/models/comments'
 import { getUserId } from '~/services/sesssion.server'
 import { db } from '~/utils/db.server'
 import { capitalizeFirstLetter } from '~/utils/helper'
@@ -12,7 +13,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
       id: params.id,
     },
   })
-
+  if (product == null) return
   let comments = await db.comment.findMany({
     where: {
       productId: product.id,
@@ -47,7 +48,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
     })
   }
 
-  comments.forEach((comment: any) => {
+  comments.forEach((comment: Comment) => {
     comment.author = comment.user.username
     comment.avatar =
       'https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes-thumbnail.png'
@@ -84,15 +85,15 @@ export const meta: MetaFunction<typeof loader> = ({ data }) => {
   }
 }
 
-export const action: ActionFunction = async ({ request, params }): Promise<any> => {
+export const action: ActionFunction = async ({ request, params }: any): Promise<any> => {
   const formData = await request.formData()
-  const response = JSON.parse(formData.get('data'))
-  const edit = JSON.parse(formData.get('commentToEdit'))
-  const rating = JSON.parse(formData.get('rating'))
-  const addToFavorite = JSON.parse(formData.get('addToFavorite'))
+  const response: CommentResponse = JSON.parse(formData.get('data') as string)
+  const edit = JSON.parse(formData.get('commentToEdit') as string)
+  const rating = JSON.parse(formData.get('rating') as string)
+  const addToFavorite = JSON.parse(formData.get('addToFavorite') as string)
   if (request.method == 'DELETE') {
     //delete comment
-    const idToDelete = formData.get('commentToDelete')
+    const idToDelete = formData.get('commentToDelete') as string
     const deletedComment = await db.comment.delete({
       where: {
         id: idToDelete,

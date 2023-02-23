@@ -38,7 +38,7 @@ export let loader: LoaderFunction = async ({ request }) => {
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData()
-  const addToFavorite = JSON.parse(formData.get('addToFavorite'))
+  const addToFavorite = JSON.parse(formData.get('addToFavorite') as string)
   if (formData && addToFavorite) {
     const favorited = await db.favoriteList.findFirst({
       where: {

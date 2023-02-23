@@ -4,7 +4,10 @@
   "scripts": {
     "build": "remix build",
     "dev": "remix dev",
-    "start": "remix-serve build"
+    "start": "remix-serve build",
+    "lint": "eslint app/**/*.{js,jsx,ts,tsx,json}",
+    "lint:fix": "eslint --fix app/**/*.{js,jsx,ts,tsx,json}",
+    "format": "prettier --write app/**/*.{js,jsx,ts,tsx,css,md,json} --config ./.prettierrc"
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
@@ -31,7 +34,13 @@
     "@types/node": "^18.8.2",
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
-    "eslint": "^8.23.1",
+    "@typescript-eslint/eslint-plugin": "^5.53.0",
+    "@typescript-eslint/parser": "^5.53.0",
+    "eslint": "^8.34.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.32.2",
+    "prettier": "^2.8.4",
     "prisma": "^4.4.0",
     "ts-node": "^10.9.1",
     "typescript": "^4.8.4"

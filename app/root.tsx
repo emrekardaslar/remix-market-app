@@ -1,20 +1,13 @@
-import type { MetaFunction } from "@remix-run/node";
-import {
-  Links,
-  LiveReload,
-  Meta,
-  Outlet,
-  Scripts,
-  ScrollRestoration,
-} from "@remix-run/react";
-import { Footer } from "antd/lib/layout/layout";
-import { CartProvider } from "./context/CartContext";
+import type { MetaFunction } from '@remix-run/node'
+import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react'
+import { Footer } from 'antd/lib/layout/layout'
+import { CartProvider } from './context/CartContext'
 
 export const meta: MetaFunction = () => ({
-  charset: "utf-8",
-  title: "Market App",
-  viewport: "width=device-width,initial-scale=1",
-});
+  charset: 'utf-8',
+  title: 'Market App',
+  viewport: 'width=device-width,initial-scale=1',
+})
 
 export function links() {
   return [
@@ -27,7 +20,7 @@ export function links() {
 
 export default function App() {
   return (
-    <html lang="en">
+    <html lang='en'>
       <head>
         <Meta />
         <Links />
@@ -35,12 +28,16 @@ export default function App() {
       <body>
         <CartProvider>
           <Outlet />
-          <Footer style={{ textAlign: 'center', position: "relative", bottom: "0px", width: "100%" }}>Market App ©2022 Created by emrekardaslar</Footer>
+          <Footer
+            style={{ textAlign: 'center', position: 'relative', bottom: '0px', width: '100%' }}
+          >
+            Market App ©2022 Created by emrekardaslar
+          </Footer>
           <ScrollRestoration />
           <Scripts />
           <LiveReload />
         </CartProvider>
       </body>
     </html>
-  );
+  )
 }

@@ -1,6 +1,8 @@
 import type { MetaFunction } from '@remix-run/node'
 import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react'
 import { Footer } from 'antd/lib/layout/layout'
+import { createPortal } from 'react-dom'
+import { ClientOnly } from 'remix-utils'
 import { CartProvider } from './context/CartContext'
 
 export const meta: MetaFunction = () => ({
@@ -18,26 +20,28 @@ export function links() {
   ]
 }
 
+export function Head() {
+  return (
+    <>
+      <Meta />
+      <Links />
+    </>
+  )
+}
+
 export default function App() {
   return (
-    <html lang='en'>
-      <head>
-        <Meta />
-        <Links />
-      </head>
-      <body>
-        <CartProvider>
-          <Outlet />
-          <Footer
-            style={{ textAlign: 'center', position: 'relative', bottom: '0px', width: '100%' }}
-          >
-            Market App ©2022 Created by emrekardaslar
-          </Footer>
-          <ScrollRestoration />
-          <Scripts />
-          <LiveReload />
-        </CartProvider>
-      </body>
-    </html>
+    <>
+      <ClientOnly>{() => createPortal(<Head />, document.head)}</ClientOnly>
+      <CartProvider>
+        <Outlet />
+        <Footer style={{ textAlign: 'center', position: 'relative', bottom: '0px', width: '100%' }}>
+          Market App ©2022 Created by emrekardaslar
+        </Footer>
+        <ScrollRestoration />
+        <Scripts />
+        <LiveReload />
+      </CartProvider>
+    </>
   )
 }

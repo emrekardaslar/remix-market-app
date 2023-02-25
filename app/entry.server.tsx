@@ -1,10 +1,9 @@
-import { PassThrough } from 'stream'
+// entry.server.ts
 import type { EntryContext } from '@remix-run/node'
 import { Response } from '@remix-run/node'
 import { RemixServer } from '@remix-run/react'
-import { renderToPipeableStream } from 'react-dom/server'
-
-const ABORT_DELAY = 5000
+import { renderToString } from 'react-dom/server'
+import { Head } from './root'
 
 export default function handleRequest(
   request: Request,
@@ -12,37 +11,46 @@ export default function handleRequest(
   responseHeaders: Headers,
   remixContext: EntryContext,
 ) {
-  return new Promise((resolve, reject) => {
-    let didError = false
+  const head = renderHead(request, remixContext)
 
-    const { pipe, abort } = renderToPipeableStream(
-      <RemixServer context={remixContext} url={request.url} />,
-      {
-        onShellReady: () => {
-          const body = new PassThrough()
+  const markup = renderToString(<RemixServer context={remixContext} url={request.url} />)
 
-          responseHeaders.set('Content-Type', 'text/html')
+  responseHeaders.set('Content-Type', 'text/html')
 
-          resolve(
-            new Response(body, {
-              headers: responseHeaders,
-              status: didError ? 500 : responseStatusCode,
-            }),
-          )
+  return new Response(
+    `<!DOCTYPE html>
+      <html>
+        <head>
+          <link rel="stylesheet"> 
+          <!--start head-->
+          ${head}
+          <!--end head-->
+        </head>
+        <body>
+          <div id="root">${markup}</div>
+        </body>
+      </html>`,
+    {
+      status: responseStatusCode,
+      headers: responseHeaders,
+    },
+  )
+}
 
-          pipe(body)
+function renderHead(request: Request, remixContext: EntryContext) {
+  return renderToString(
+    <RemixServer
+      context={{
+        ...remixContext,
+        routeModules: {
+          ...remixContext.routeModules,
+          root: {
+            ...remixContext.routeModules.root,
+            default: Head,
+          },
         },
-        onShellError: (err) => {
-          reject(err)
-        },
-        onError: (error) => {
-          didError = true
-
-          console.error(error)
-        },
-      },
-    )
-
-    setTimeout(abort, ABORT_DELAY)
-  })
+      }}
+      url={request.url}
+    />,
+  )
 }

@@ -11,11 +11,12 @@ interface Product {
 }
 interface HplProps {
     products: Product[],
+    base: string,
     button: boolean
 }
 
 
-export const Hpl: FC<HplProps> = ({ products, button = false }) => {
+export const Hpl: FC<HplProps> = ({ products, base, button = false }) => {
     const containerRef = useRef<any>()
 
     const scroll = (scrollOffset: number) => {
@@ -28,7 +29,7 @@ export const Hpl: FC<HplProps> = ({ products, button = false }) => {
                 {products.map(product => (
                     <div className={"hpl-card"}>
                         <div className={"hpl-image"}>
-                            <Link prefetch="render" to={`${product.category}/${product.subCategory}/${product.id}`}><img src={product.imgLink} alt={product.description}/></Link>
+                            <Link prefetch="render" to={base == "products" ? `${product.category}/${product.subCategory}/${product.id}` : `${product.subCategory}/${product.id}`}><img src={product.imgLink} alt={product.description}/></Link>
                         </div>
                         <div className={"hpl-desc"}>
                             <p>{product.description}</p>

@@ -48,7 +48,7 @@ function Products() {
           <h1 style={{ fontWeight: 'bold', textTransform: 'capitalize', marginLeft: '0.3rem' }}>
             {key}
           </h1>
-          <Hpl products={productsObject[key]} onClick={clickHandler} button={true} />
+          <Hpl products={productsObject[key]} base={"products"} button={true} />
         </>
       ))}
       <Outlet />

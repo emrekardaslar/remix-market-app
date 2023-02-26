@@ -34,7 +34,7 @@ function Category() {
       <h1 style={{ fontWeight: 'bold', textTransform: 'capitalize', marginLeft: '0.3rem' }}>
         {data.category}
       </h1>
-      <Hpl products={data.products} button={true} />
+      <Hpl products={data.products} base={"category"} button={true} />
     </>
   )
 }

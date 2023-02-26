@@ -39,7 +39,7 @@ export const action: ActionFunction = async ({ request, params }): Promise<any> 
   let userId = await getUserId(request)
   if (!userId) throw redirect('/login')
   const formData = await request.formData()
-  const addToFavorite = JSON.parse(formData.get('addToFavorite'))
+  const addToFavorite = JSON.parse(formData.get('addToFavorite') as string)
   if (formData && addToFavorite) {
     const favorited = await db.favoriteList.findFirst({
       where: {

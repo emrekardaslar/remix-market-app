@@ -1,5 +1,5 @@
 import type { MetaFunction } from '@remix-run/node'
-import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react'
+import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useCatch } from '@remix-run/react'
 import { Footer } from 'antd/lib/layout/layout'
 import { CartProvider } from './context/CartContext'
 
@@ -40,4 +40,22 @@ export default function App() {
       </body>
     </html>
   )
+}
+
+export function CatchBoundary() {
+  const caught = useCatch();
+
+  return (
+    <div>
+      <h1>404 Error</h1>
+      <p>Status: {caught.status}</p>
+      <pre>
+        <code>{JSON.stringify(caught.data, null, 2)}</code>
+      </pre>
+    </div>
+  );
+}
+
+export function ErrorBoundary({ error }: { error: Error }) {
+  return <div className="error-container">Sorry, cannot load the page</div>;
 }

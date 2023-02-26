@@ -6,6 +6,15 @@ import { Comment, CommentResponse } from '~/models/comments'
 import { getUserId } from '~/services/sesssion.server'
 import { db } from '~/utils/db.server'
 import { capitalizeFirstLetter } from '~/utils/helper'
+import styles from "../../styles/product.css";
+export function links() {
+  return [
+    {
+      rel: "stylesheet",
+      href: styles,
+    },
+  ];
+}
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   const product = await db.product.findFirst({

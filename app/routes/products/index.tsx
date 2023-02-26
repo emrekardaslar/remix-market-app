@@ -1,7 +1,7 @@
 import { Product } from '@prisma/client'
 import { LoaderFunction } from '@remix-run/node'
 import { Outlet, useLoaderData, useNavigate } from '@remix-run/react'
-import { Hpl } from 'emrekardaslar-uikit'
+import { Hpl } from '~/components/UI/HorizontalPl'
 import { db } from '~/utils/db.server'
 
 export let loader: LoaderFunction = async () => {

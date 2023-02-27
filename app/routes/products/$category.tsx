@@ -30,7 +30,6 @@ function Category() {
 
   return (
     <>
-      <Link prefetch="render" to="/products/food/chocolate/058eceac-1c5b-4430-ace2-5b60fc844e1f">Dashboard</Link>{" "}
       <h1 style={{ fontWeight: 'bold', textTransform: 'capitalize', marginLeft: '0.3rem' }}>
         {data.category}
       </h1>

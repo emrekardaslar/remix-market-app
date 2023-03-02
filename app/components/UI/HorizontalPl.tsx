@@ -29,7 +29,7 @@ export const Hpl: FC<HplProps> = ({ products, base, button = false }) => {
                 {products.map(product => (
                     <div className={"hpl-card"}>
                         <div className={"hpl-image"}>
-                            <Link prefetch="render" to={base == "products" ? `${product.category}/${product.subCategory}/${product.id}` : `${product.subCategory}/${product.id}`}><img src={product.imgLink} alt={product.description}/></Link>
+                            <Link prefetch="intent" to={base == "products" ? `${product.category}/${product.subCategory}/${product.id}` : `${product.subCategory}/${product.id}`}><img src={product.imgLink} alt={product.description}/></Link>
                         </div>
                         <div className={"hpl-desc"}>
                             <p>{product.description}</p>

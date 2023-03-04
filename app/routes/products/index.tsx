@@ -1,7 +1,7 @@
 import { Product } from '@prisma/client'
 import { LoaderFunction } from '@remix-run/node'
 import { Outlet, useLoaderData, useNavigate } from '@remix-run/react'
-import { Hpl } from 'emrekardaslar-uikit'
+import { Hpl } from '~/components/UI/HorizontalPl'
 import { db } from '~/utils/db.server'
 
 export let loader: LoaderFunction = async () => {
@@ -48,7 +48,7 @@ function Products() {
           <h1 style={{ fontWeight: 'bold', textTransform: 'capitalize', marginLeft: '0.3rem' }}>
             {key}
           </h1>
-          <Hpl products={productsObject[key]} onClick={clickHandler} button={true} />
+          <Hpl products={productsObject[key]} base={"products"} button={true} />
         </>
       ))}
       <Outlet />

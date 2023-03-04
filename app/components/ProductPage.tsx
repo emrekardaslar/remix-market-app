@@ -2,11 +2,12 @@ import { HeartOutlined } from '@ant-design/icons'
 import { useFetcher, useLoaderData, useNavigate } from '@remix-run/react'
 import { Row, Card, Button, Col, Rate, notification, Badge, Space } from 'antd'
 import Meta from 'antd/lib/card/Meta'
-import { ProductImages } from 'emrekardaslar-uikit'
+
 import { useEffect, useState } from 'react'
 import { useShoppingCart } from '~/context/CartContext'
 import Comments from './Comments'
 import PageContent from './UI/PageContent'
+import { ProductImages } from './UI/ProductImages'
 
 interface ProductPageProps {
   product: any

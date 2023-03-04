@@ -36,7 +36,9 @@ export const ProductImages: FC<ProductImagesProps> = ({ imageLinks, content, ima
   }
 
   const handlePreviousPhoto = () => {
-    setSelectedPhotoIndex((prevIndex: number) => (prevIndex - 1 + imageLinks.length) % imageLinks.length)
+    setSelectedPhotoIndex(
+      (prevIndex: number) => (prevIndex - 1 + imageLinks.length) % imageLinks.length,
+    )
   }
 
   return (

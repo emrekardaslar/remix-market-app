@@ -1,8 +1,16 @@
 import type { MetaFunction } from '@remix-run/node'
-import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useCatch } from '@remix-run/react'
+import {
+  Links,
+  LiveReload,
+  Meta,
+  Outlet,
+  Scripts,
+  ScrollRestoration,
+  useCatch,
+} from '@remix-run/react'
 import { Footer } from 'antd/lib/layout/layout'
 import { CartProvider } from './context/CartContext'
-import styles from "./styles/global.css";
+import styles from './styles/global.css'
 
 export const meta: MetaFunction = () => ({
   charset: 'utf-8',
@@ -17,7 +25,7 @@ export function links() {
       href: 'https://cdn.jsdelivr.net/npm/antd@4.21.6/dist/antd.css',
     },
     {
-      rel: "stylesheet",
+      rel: 'stylesheet',
       href: styles,
     },
   ]
@@ -48,7 +56,7 @@ export default function App() {
 }
 
 export function CatchBoundary() {
-  const caught = useCatch();
+  const caught = useCatch()
 
   return (
     <div>
@@ -58,9 +66,9 @@ export function CatchBoundary() {
         <code>{JSON.stringify(caught.data, null, 2)}</code>
       </pre>
     </div>
-  );
+  )
 }
 
 export function ErrorBoundary({ error }: { error: Error }) {
-  return <div className="error-container">Sorry, cannot load the subcategory</div>;
+  return <div className='error-container'>Sorry, cannot load the subcategory</div>
 }

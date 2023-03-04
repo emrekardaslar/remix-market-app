@@ -3,15 +3,15 @@ import { LoaderFunction } from '@remix-run/node'
 import { Link, useLoaderData, useNavigate } from '@remix-run/react'
 import { Hpl } from '~/components/UI/HorizontalPl'
 import { db } from '~/utils/db.server'
-import styles from "../../styles/global.css";
+import styles from '../../styles/global.css'
 
 export function links() {
   return [
     {
-      rel: "stylesheet",
+      rel: 'stylesheet',
       href: styles,
     },
-  ];
+  ]
 }
 
 export let loader: LoaderFunction = async ({ request, params }) => {
@@ -33,7 +33,7 @@ function Category() {
       <h1 style={{ fontWeight: 'bold', textTransform: 'capitalize', marginLeft: '0.3rem' }}>
         {data.category}
       </h1>
-      <Hpl products={data.products} base={"category"} button={true} />
+      <Hpl products={data.products} base={'category'} button={true} />
     </>
   )
 }

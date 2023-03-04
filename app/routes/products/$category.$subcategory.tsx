@@ -5,7 +5,7 @@ import CategoryPage from '~/components/CategoryPage'
 import { getUserId } from '~/services/sesssion.server'
 import { db } from '~/utils/db.server'
 import { capitalizeFirstLetter } from '~/utils/helper'
-import { useCatch } from "@remix-run/react";
+import { useCatch } from '@remix-run/react'
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   let userId = await getUserId(request)
@@ -87,7 +87,7 @@ export default function Subcategory() {
 }
 
 export function CatchBoundary() {
-  const caught = useCatch();
+  const caught = useCatch()
 
   return (
     <div>
@@ -97,10 +97,9 @@ export function CatchBoundary() {
         <code>{JSON.stringify(caught.data, null, 2)}</code>
       </pre>
     </div>
-  );
+  )
 }
 
 export function ErrorBoundary({ error }: { error: Error }) {
-  return <div className="error-container">Sorry, cannot load the subcategory</div>;
+  return <div className='error-container'>Sorry, cannot load the subcategory</div>
 }
-

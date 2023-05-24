@@ -1,11 +1,13 @@
-import { FavoriteList } from '@prisma/client'
+import { FavoriteList, Product } from '@prisma/client'
 import { ActionFunction, LoaderFunction, MetaFunction, redirect } from '@remix-run/node'
-import { Outlet, useLoaderData } from '@remix-run/react'
+import { Outlet, useLoaderData, useLocation } from '@remix-run/react'
 import CategoryPage from '~/components/CategoryPage'
 import { getUserId } from '~/services/sesssion.server'
 import { db } from '~/utils/db.server'
 import { capitalizeFirstLetter } from '~/utils/helper'
 import { useCatch } from '@remix-run/react'
+import { Filter } from '~/components/Filter'
+import { useEffect, useState } from 'react'
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   let userId = await getUserId(request)
@@ -78,9 +80,21 @@ export const meta: MetaFunction<typeof loader> = ({ params }) => {
 
 export default function Subcategory() {
   const data = useLoaderData()
+  const [products, setProducts] = useState(data.products)
+  const location = useLocation()
+  let brandList: string[] = []
+  data.products.forEach((product: Product) => {
+    if (!brandList.includes(product.brand) && product.brand != '') brandList.push(product.brand)
+  })
+
+  useEffect(() => {
+    setProducts(data.products)
+  }, [location])
+
   return (
     <>
-      <CategoryPage data={data.products} favoriteList={data.list} userId={data.userId} />
+      <Filter items={brandList} products={data.products} setProducts={setProducts} />
+      <CategoryPage data={products} favoriteList={data.list} userId={data.userId} />
       <Outlet />
     </>
   )

@@ -169,3 +169,54 @@ body {
 .modal-next {
   margin-left: 16px;
 }
+
+.container {
+  display: flex;
+  background-color: #f0f0f0;
+}
+
+.content-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.side-menu {
+  position: relative;
+  top: 30;
+  left: 0;
+  width: 200px;
+  /*  height: 100vh; */
+  background-color: #f8f7f7;
+  transition: transform 0.3s ease-in-out;
+  transform: translateX(-100%);
+}
+
+.side-menu.open {
+  transform: translateX(0);
+}
+
+.toggle-button {
+  margin: 10px;
+  padding: 5px 10px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.menu-items {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.menu-items li {
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.menu-items li:hover {
+  background-color: #ccc;
+}

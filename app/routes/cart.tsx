@@ -93,7 +93,6 @@ function Cart() {
 
   return (
     <>
-      <HeaderC items={items} selectedKey='Cart' />
       <Outlet />
       <div style={{ margin: '1rem' }}>
         {cartItems1.length === 0 ? (

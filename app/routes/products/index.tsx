@@ -43,14 +43,16 @@ function Products() {
 
   return (
     <>
-      {keys.map((key: string) => (
-        <>
-          <h1 style={{ fontWeight: 'bold', textTransform: 'capitalize', marginLeft: '0.3rem' }}>
-            {key}
-          </h1>
-          <Hpl products={productsObject[key]} base={'products'} button={true} />
-        </>
-      ))}
+      <div>
+        {keys.map((key: string) => (
+          <>
+            <h1 style={{ fontWeight: 'bold', textTransform: 'capitalize', marginLeft: '0.3rem' }}>
+              {key}
+            </h1>
+            <Hpl products={productsObject[key]} base={'products'} button={true} />
+          </>
+        ))}
+      </div>
       <Outlet />
     </>
   )

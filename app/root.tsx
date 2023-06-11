@@ -1,4 +1,4 @@
-import type { MetaFunction } from '@remix-run/node'
+import type { LoaderFunction, MetaFunction } from '@remix-run/node'
 import {
   Links,
   LiveReload,
@@ -7,16 +7,26 @@ import {
   Scripts,
   ScrollRestoration,
   useCatch,
+  useLoaderData,
 } from '@remix-run/react'
 import { Footer } from 'antd/lib/layout/layout'
 import { CartProvider } from './context/CartContext'
 import styles from './styles/global.css'
+import Header from './components/Header'
+import { getHeaderItems } from '~/utils/helper'
+import headerItems from './mock/headerItems'
+import { getUserId } from './services/sesssion.server'
 
 export const meta: MetaFunction = () => ({
   charset: 'utf-8',
   title: 'Market App',
   viewport: 'width=device-width,initial-scale=1',
 })
+
+export let loader: LoaderFunction = async ({ request }) => {
+  let userId = await getUserId(request)
+  return { user: userId }
+}
 
 export function links() {
   return [
@@ -32,6 +42,8 @@ export function links() {
 }
 
 export default function App() {
+  const data = useLoaderData()
+  let items = getHeaderItems(data, headerItems)
   return (
     <html lang='en'>
       <head>
@@ -40,6 +52,7 @@ export default function App() {
       </head>
       <body>
         <CartProvider>
+          <Header items={items} />
           <Outlet />
           <Footer
             style={{ textAlign: 'center', position: 'relative', bottom: '0px', width: '100%' }}
@@ -69,6 +82,7 @@ export function CatchBoundary() {
   )
 }
 
-export function ErrorBoundary({ error }: { error: Error }) {
+/* export function ErrorBoundary({ error }: { error: Error }) {
   return <div className='error-container'>Sorry, cannot load the subcategory</div>
 }
+ */

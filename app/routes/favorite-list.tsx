@@ -100,7 +100,6 @@ function FavoriteList() {
 
   return (
     <>
-      <HeaderC items={items} selectedKey='Favorite List' />
       <Outlet />
       <br></br>
       <Row key={Math.random()} gutter={16}>

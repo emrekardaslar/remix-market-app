@@ -1,14 +1,11 @@
 import React from 'react'
 import { NotificationOutlined } from '@ant-design/icons'
-import HeaderC from '~/components/Header'
 import Sidebar from '~/components/Sidebar'
-import headerItems from '../mock/headerItems'
 import { SidebarMenu } from '../models/sidebarMenu'
-import { Layout } from 'antd'
 import { Outlet, useLoaderData } from '@remix-run/react'
-import { capitalizeFirstLetter, getHeaderItems } from '~/utils/helper'
+import { capitalizeFirstLetter } from '~/utils/helper'
 import { getUserId } from '~/services/sesssion.server'
-import { LoaderFunction, MetaFunction } from '@remix-run/node'
+import { ActionFunction, LoaderFunction, MetaFunction, redirect } from '@remix-run/node'
 import { db } from '~/utils/db.server'
 
 export let loader: LoaderFunction = async ({ request }) => {
@@ -34,6 +31,28 @@ export let loader: LoaderFunction = async ({ request }) => {
   })
 
   return { user: userId, categoryNames, categoryObject }
+}
+
+export const action: ActionFunction = async ({ request }): Promise<any> => {
+  const formData = await request.formData()
+  const filters = JSON.parse(formData.get('filterChange') as string)?.filteredProducts
+  const location = JSON.parse(formData.get('filterChange') as string)?.location
+
+  let params = filters?.map((brand: string) => {
+    let str = '?brand='
+    str += brand
+    return str
+  })
+
+  if (filters.length == 0) {
+    params = ''
+  }
+
+  if (formData && filters) {
+    return redirect(`${location}${params}`)
+    //return redirect(`/products/electronics/computers${params}`)
+  }
+  return {}
 }
 
 export const meta: MetaFunction<typeof loader> = () => {
@@ -62,22 +81,13 @@ function getSidebarItems(categoryObject: any): any[] {
 
 function Products() {
   const data = useLoaderData()
-  let items = getHeaderItems(data, headerItems)
   return (
-    <Layout>
-      <HeaderC items={items} selectedKey='Products' />
-
-      <Layout>
+    <>
+      <div className='container'>
         <Sidebar items={getSidebarItems(data.categoryObject)} />
-        <Layout
-          style={{
-            padding: '0 24px 24px',
-          }}
-        >
-          <Outlet />
-        </Layout>
-      </Layout>
-    </Layout>
+        <Outlet />
+      </div>
+    </>
   )
 }
 

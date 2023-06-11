@@ -55,7 +55,6 @@ function Register() {
   let items = getHeaderItems(actionData, headerItems)
   return (
     <>
-      <HeaderC items={items} selectedKey='Register' />
       <Form
         method='post'
         aria-describedby={actionData?.formError ? 'form-error-message' : undefined}

@@ -1,4 +1,4 @@
-import { FavoriteList, Product } from '@prisma/client'
+import { FavoriteList } from '@prisma/client'
 import { ActionFunction, LoaderFunction, MetaFunction, redirect } from '@remix-run/node'
 import { Outlet, useLoaderData, useLocation } from '@remix-run/react'
 import CategoryPage from '~/components/CategoryPage'
@@ -6,7 +6,6 @@ import { getUserId } from '~/services/sesssion.server'
 import { db } from '~/utils/db.server'
 import { capitalizeFirstLetter } from '~/utils/helper'
 import { useCatch } from '@remix-run/react'
-import { Filter } from '~/components/Filter'
 import { useEffect, useState } from 'react'
 
 export const loader: LoaderFunction = async ({ request, params }) => {
@@ -20,11 +19,35 @@ export const loader: LoaderFunction = async ({ request, params }) => {
     })
   }
 
-  let products = await db.product.findMany({
-    where: {
-      subCategory: params.subcategory,
-    },
-  })
+  const allBrands = [
+    ...new Set(
+      (
+        await db.product.findMany({
+          where: {
+            subCategory: params.subcategory,
+          },
+        })
+      ).map((product) => product.brand),
+    ),
+  ]
+
+  const url = new URL(request.url)
+  const brand = url.searchParams.get('brand')
+
+  let products = []
+  if (brand) {
+    products = await db.product.findMany({
+      where: {
+        brand: brand,
+      },
+    })
+  } else {
+    products = products = await db.product.findMany({
+      where: {
+        subCategory: params.subcategory,
+      },
+    })
+  }
 
   let list: any = []
 
@@ -34,7 +57,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
     })
   })
 
-  return { products, list, userId }
+  return { products, list, userId, allBrands }
 }
 
 export const action: ActionFunction = async ({ request, params }): Promise<any> => {
@@ -82,21 +105,16 @@ export default function Subcategory() {
   const data = useLoaderData()
   const [products, setProducts] = useState(data.products)
   const location = useLocation()
-  let brandList: string[] = []
-  data.products.forEach((product: Product) => {
-    if (!brandList.includes(product.brand) && product.brand != '') brandList.push(product.brand)
-  })
 
   useEffect(() => {
     setProducts(data.products)
   }, [location])
 
   return (
-    <>
-      <Filter items={brandList} products={data.products} setProducts={setProducts} />
+    <div>
       <CategoryPage data={products} favoriteList={data.list} userId={data.userId} />
       <Outlet />
-    </>
+    </div>
   )
 }
 

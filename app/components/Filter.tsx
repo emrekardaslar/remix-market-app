@@ -1,27 +1,24 @@
-import { useLocation } from '@remix-run/react'
-import React, { ChangeEvent, useEffect, useState } from 'react'
+import { useFetcher, useMatches } from '@remix-run/react'
+import { ChangeEvent, useEffect, useState } from 'react'
 
-export const Filter = ({ items, products, setProducts }: any) => {
+export const Filter = ({ items }: any) => {
   const [searchTerm, setSearchTerm] = useState('')
   const [filters, setFilters] = useState([])
-  const location = useLocation()
+  const fetcher = useFetcher()
+  const data = useMatches()
+  const { id, pathname } = data[data.length - 1]
 
   useEffect(() => {
-    setFilters([])
-    setSearchTerm('')
-    unCheck()
-  }, [location])
-
-  useEffect(() => {
-    if (filters.length > 0) {
-      const filteredProducts =
-        filters.length > 0
-          ? products.filter((product: any) => {
-              return filters.some((brand) => product.brand == brand)
-            })
-          : products
-      setProducts(filteredProducts)
-    } else setProducts(products)
+    if (id.endsWith('subcategory'))
+      fetcher.submit(
+        {
+          filterChange: JSON.stringify({
+            filteredProducts: filters,
+            location: pathname,
+          }),
+        },
+        { method: 'post' },
+      )
   }, [filters])
 
   const unCheck = () => {
@@ -37,7 +34,7 @@ export const Filter = ({ items, products, setProducts }: any) => {
     setSearchTerm(event.target.value)
   }
 
-  const filteredItems = items.filter((item: any) =>
+  const filteredItems = items?.filter((item: any) =>
     item.toLowerCase().includes(searchTerm.toLowerCase()),
   )
 
@@ -52,11 +49,11 @@ export const Filter = ({ items, products, setProducts }: any) => {
   }
 
   return (
-    <div>
+    <div className='filter'>
       <p>Brand</p>
       <input type='text' placeholder='Search brand' value={searchTerm} onChange={handleSearch} />
       <ul>
-        {filteredItems.map((item: any, index: any) => (
+        {filteredItems?.map((item: any, index: any) => (
           <>
             <input id={index} onClick={handleBrandClick} type='checkbox' key={index} value={item} />
             <label>{item}</label>

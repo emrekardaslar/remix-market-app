@@ -59,7 +59,6 @@ function Login() {
   const actionData = useActionData<ActionData | undefined>()
   return (
     <>
-      <HeaderC items={items} selectedKey='Login' />
       <Form
         method='post'
         aria-describedby={actionData?.formError ? 'form-error-message' : undefined}

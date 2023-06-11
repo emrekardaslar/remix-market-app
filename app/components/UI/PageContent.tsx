@@ -1,13 +1,11 @@
 import { useLocation } from '@remix-run/react'
-import { Breadcrumb, Layout } from 'antd'
-
-const { Content } = Layout
+import { Breadcrumb } from 'antd'
 
 function PageContent(props: any) {
   let location = useLocation()
   const breadcrumbItems = location.pathname.split('/')
   return (
-    <>
+    <div className='content-container'>
       <Breadcrumb
         style={{
           margin: '16px 0',
@@ -17,17 +15,8 @@ function PageContent(props: any) {
         <Breadcrumb.Item>{breadcrumbItems[2]}</Breadcrumb.Item>
         <Breadcrumb.Item>{breadcrumbItems[3]}</Breadcrumb.Item>
       </Breadcrumb>
-      <Content
-        className='site-layout-background'
-        style={{
-          padding: 24,
-          margin: 0,
-          minHeight: 280,
-        }}
-      >
-        {props.children}
-      </Content>
-    </>
+      {props.children}
+    </div>
   )
 }
 

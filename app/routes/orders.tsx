@@ -1,6 +1,5 @@
 import { ActionFunction, LoaderFunction, MetaFunction, redirect } from '@remix-run/node'
 import { Outlet, useLoaderData } from '@remix-run/react'
-import HeaderC from '~/components/Header'
 import authenticator from '~/services/auth.service'
 import { getUserId } from '~/services/sesssion.server'
 import { getHeaderItems } from '~/utils/helper'
@@ -29,7 +28,6 @@ function Orders() {
 
   return (
     <>
-      <HeaderC items={items} selectedKey='Orders' />
       <Outlet />
     </>
   )
